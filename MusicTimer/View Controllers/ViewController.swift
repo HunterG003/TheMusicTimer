@@ -51,7 +51,7 @@ class ViewController: UIViewController {
     @objc func playButtonPressed(_ button : UIButton) {
         view.backgroundColor = COLORS.randomElement()
         
-        musicPlayer.testAPIRequest()
+        musicPlayer.getUsersPlaylists()
     }
 
 

@@ -42,6 +42,30 @@ class MusicPlayer {
         }
     }
     
+    func getUsersPlaylists() {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.music.apple.com"
+        components.path = "/v1/me/library/playlists"
+        
+        let url = components.url!
+        
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(devToken)", forHTTPHeaderField: "Authorization")
+        request.setValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else { fatalError("No data got returned") }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                print(json)
+            } catch {
+                
+            }
+        }.resume()
+    }
+    
     func testAPIRequest() {
         
         var components = URLComponents()
