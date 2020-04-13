@@ -60,8 +60,10 @@ class MusicPlayer {
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: [])
                 print(json)
+                let object = try JSONDecoder().decode(UserPlaylistObject.self, from: data)
+                print(object)
             } catch {
-                
+                print(error)
             }
         }.resume()
     }

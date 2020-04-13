@@ -10,6 +10,11 @@ import Foundation
 
 struct UserPlaylistObject : Codable {
     let data : [UserPlaylistData]
+    let meta : UserPlaylistMeta
+}
+
+struct UserPlaylistMeta : Codable {
+    let total : Int
 }
 
 struct UserPlaylistData : Codable {
@@ -21,5 +26,15 @@ struct UserPlaylistData : Codable {
 
 struct UserPlaylistAttributes : Codable {
     let name : String
-    let playParams : PlayParameters
+    let artwork : UserPlaylistArtwork?
+    let playParams : UserPlaylistPlayParams
+}
+
+struct UserPlaylistArtwork : Codable {
+    let url : String
+}
+struct UserPlaylistPlayParams : Codable {
+    let globalId : String?
+    let id : String
+    let kind : String
 }
