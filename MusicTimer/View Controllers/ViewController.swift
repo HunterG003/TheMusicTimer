@@ -37,8 +37,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .black
         setupView()
-        musicPlayer.getUserToken()
-        musicPlayer.getStoreFront()
+        musicPlayer.getAuth()
     }
     
     func setupView() {
@@ -65,7 +64,7 @@ class ViewController: UIViewController {
     }
     
     @objc func playButtonPressed(_ button : UIButton) {
-        // Play
+        musicPlayer.testPlay()
     }
     
     @objc func getPlaylistsPressed(_ button : UIButton) {
