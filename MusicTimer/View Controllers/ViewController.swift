@@ -10,9 +10,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let COLORS = [UIColor.red, UIColor.blue, UIColor.green, UIColor.gray, UIColor.black, UIColor.white]
-    let musicPlayer = MusicPlayer()
-    
     // MARK: UI Variables
     private let playButton : UIButton = {
         let button = UIButton()
@@ -27,10 +24,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        view.backgroundColor = COLORS.randomElement()
+        view.backgroundColor = .gray
         setupView()
-        musicPlayer.getUserToken()
-        musicPlayer.getStoreFront()
     }
     
     func setupView() {
@@ -49,9 +44,7 @@ class ViewController: UIViewController {
     }
     
     @objc func playButtonPressed(_ button : UIButton) {
-        view.backgroundColor = COLORS.randomElement()
-        
-        musicPlayer.testAPIRequest()
+        print("Play Button Pressed")
     }
 
 
