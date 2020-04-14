@@ -20,26 +20,65 @@ class ViewController: UIViewController {
         return button
     }()
     
+    private let nowPlayingCardView : UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .black
+        return view
+    }()
+    
+    private let nowPlayingArtwork : UIImageView = {
+        let i = UIImage(named: "artwork")
+        let view = UIImageView(image: i)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
+    
+    private let nowPlayingArtistLabel : UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.text = "Post Malone"
+        return lbl
+    }()
+    
+    private let nowPlayingSongNameLabel : UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.text = "Stoney"
+        return lbl
+    }()
+    
     // MARK: VIEW DIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        view.backgroundColor = .gray
+        view.backgroundColor = .white
         setupView()
     }
     
     func setupView() {
-        buildButtons()
-    }
-    
-    func buildButtons() {
-        view.addSubview(playButton)
-        playButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(nowPlayingCardView)
         NSLayoutConstraint.activate([
-            playButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            playButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            playButton.widthAnchor.constraint(equalToConstant: 100),
-            playButton.heightAnchor.constraint(equalToConstant: 50)
+            nowPlayingCardView.widthAnchor.constraint(equalToConstant: view.bounds.width / 1.3),
+            nowPlayingCardView.heightAnchor.constraint(equalToConstant: view.bounds.height / 3),
+            nowPlayingCardView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            nowPlayingCardView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15)
+        ])
+        
+        nowPlayingCardView.addSubview(nowPlayingArtwork)
+        nowPlayingCardView.addSubview(nowPlayingSongNameLabel)
+        nowPlayingCardView.addSubview(nowPlayingArtistLabel)
+        NSLayoutConstraint.activate([
+            nowPlayingArtwork.centerXAnchor.constraint(equalTo: nowPlayingCardView.centerXAnchor),
+            nowPlayingArtwork.topAnchor.constraint(equalTo: nowPlayingCardView.topAnchor, constant: 5),
+            nowPlayingArtwork.heightAnchor.constraint(equalToConstant: view.bounds.height / 4),
+            
+            nowPlayingSongNameLabel.centerXAnchor.constraint(equalTo: nowPlayingCardView.centerXAnchor),
+            nowPlayingSongNameLabel.topAnchor.constraint(equalTo: nowPlayingArtwork.bottomAnchor, constant: 5),
+            // Add a width later for the labels
+            nowPlayingArtistLabel.centerXAnchor.constraint(equalTo: nowPlayingCardView.centerXAnchor),
+            nowPlayingArtistLabel.topAnchor.constraint(equalTo: nowPlayingSongNameLabel.bottomAnchor, constant: 5)
         ])
     }
     
