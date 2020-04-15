@@ -17,6 +17,9 @@ class ViewController: UIViewController {
         button.setTitle("Play", for: .normal)
         button.backgroundColor = .blue
         button.addTarget(self, action: #selector(playButtonPressed(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setValue(UIFont.boldSystemFont(ofSize: 25), forKey: "Font")
+        button.layer.cornerRadius = 10
         return button
     }()
     
@@ -108,6 +111,13 @@ class ViewController: UIViewController {
     func setupView() {
         createNowPlayingCard()
         createTimePicker()
+        view.addSubview(playButton)
+        NSLayoutConstraint.activate([
+            playButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            playButton.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: 40),
+            playButton.widthAnchor.constraint(equalToConstant: 100),
+            playButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
     @objc func playButtonPressed(_ button : UIButton) {
