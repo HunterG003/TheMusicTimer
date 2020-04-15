@@ -74,6 +74,7 @@ class MainViewController: UIViewController {
         setupView()
     }
     
+    // MARK: View Setup Functions
     fileprivate func createNowPlayingCard() {
         view.addSubview(nowPlayingCardView)
         NSLayoutConstraint.activate([
@@ -121,7 +122,6 @@ class MainViewController: UIViewController {
     }
     
     @objc func playButtonPressed(_ button : UIButton) {
-        print("Play Button Pressed")
         present(NowPlayingViewController(), animated: true)
     }
 
