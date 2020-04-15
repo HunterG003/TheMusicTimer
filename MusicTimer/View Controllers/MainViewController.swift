@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     
     // MARK: UI Variables
     private let playButton : UIButton = {
@@ -122,6 +122,7 @@ class ViewController: UIViewController {
     
     @objc func playButtonPressed(_ button : UIButton) {
         print("Play Button Pressed")
+        present(NowPlayingViewController(), animated: true)
     }
 
 
