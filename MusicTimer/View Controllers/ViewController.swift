@@ -55,6 +55,14 @@ class ViewController: UIViewController {
         return lbl
     }()
     
+    private let timePicker : UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.datePickerMode = .countDownTimer
+        picker.setValue(UIColor.black, forKey: "TextColor")
+        return picker
+    }()
+    
     // MARK: VIEW DIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,8 +96,18 @@ class ViewController: UIViewController {
         ])
     }
     
+    fileprivate func createTimePicker() {
+        view.addSubview(timePicker)
+        NSLayoutConstraint.activate([
+            timePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            timePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            timePicker.topAnchor.constraint(equalTo: nowPlayingCardView.bottomAnchor, constant: 20)
+        ])
+    }
+    
     func setupView() {
         createNowPlayingCard()
+        createTimePicker()
     }
     
     @objc func playButtonPressed(_ button : UIButton) {
