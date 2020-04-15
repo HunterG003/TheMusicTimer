@@ -23,7 +23,11 @@ class ViewController: UIViewController {
     private let nowPlayingCardView : UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .black
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 20
+        view.layer.shadowOpacity = 1
+        view.layer.shadowOffset = CGSize(width: 0, height: 0)
+        view.layer.shadowRadius = 10
         return view
     }()
     
@@ -39,6 +43,7 @@ class ViewController: UIViewController {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.text = "Post Malone"
+        lbl.textColor = .black
         return lbl
     }()
     
@@ -46,6 +51,7 @@ class ViewController: UIViewController {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.text = "Stoney"
+        lbl.textColor = .black
         return lbl
     }()
     
