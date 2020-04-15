@@ -63,7 +63,7 @@ class ViewController: UIViewController {
         setupView()
     }
     
-    func setupView() {
+    fileprivate func createNowPlayingCard() {
         view.addSubview(nowPlayingCardView)
         NSLayoutConstraint.activate([
             nowPlayingCardView.widthAnchor.constraint(equalToConstant: view.bounds.width / 1.3),
@@ -86,6 +86,10 @@ class ViewController: UIViewController {
             nowPlayingArtistLabel.centerXAnchor.constraint(equalTo: nowPlayingCardView.centerXAnchor),
             nowPlayingArtistLabel.topAnchor.constraint(equalTo: nowPlayingSongNameLabel.bottomAnchor, constant: 5)
         ])
+    }
+    
+    func setupView() {
+        createNowPlayingCard()
     }
     
     @objc func playButtonPressed(_ button : UIButton) {
