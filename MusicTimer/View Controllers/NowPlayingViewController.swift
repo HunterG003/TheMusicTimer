@@ -54,6 +54,32 @@ class NowPlayingViewController: UIViewController {
         return lbl
     }()
     
+    private let mediaControlsView : UIView = {
+        let view = UIView()
+        view.backgroundColor = .red
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let mediaControlsRewindButton : UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
+    private let mediaControlsPlayButton : UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.addTarget(self, action: #selector(playButtonPressed(_:)), for: .touchUpInside)
+        return btn
+    }()
+    
+    private let mediaControlsSkipButton : UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
     // MARK: View DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,6 +140,46 @@ class NowPlayingViewController: UIViewController {
         setupBlur()
         createSongInfoView()
         
+        let height = view.bounds.height / 5
+        let buttonSize = height / 2
         
+        let playButtonImage = UIImageView(image: UIImage(systemName: "play.fill"))
+        playButtonImage.translatesAutoresizingMaskIntoConstraints = false
+        let rewindButtonImage = UIImageView(image: UIImage(systemName: "backward.fill"))
+        let skipButtonImage = UIImageView(image: UIImage(systemName: "forward.fill"))
+        
+        view.addSubview(mediaControlsView)
+        NSLayoutConstraint.activate([
+            mediaControlsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mediaControlsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mediaControlsView.topAnchor.constraint(equalTo: songInfoView.bottomAnchor),
+            mediaControlsView.heightAnchor.constraint(equalToConstant: height)
+        ])
+        
+        mediaControlsView.addSubview(mediaControlsPlayButton)
+//        mediaControlsView.addSubview(mediaControlsSkipButton)
+//        mediaControlsView.addSubview(mediaControlsRewindButton)
+        NSLayoutConstraint.activate([
+            mediaControlsPlayButton.centerXAnchor.constraint(equalTo: mediaControlsView.centerXAnchor),
+            mediaControlsPlayButton.heightAnchor.constraint(equalToConstant: buttonSize),
+            mediaControlsPlayButton.widthAnchor.constraint(equalToConstant: buttonSize)
+        ])
+        
+        /*
+         I went with this approach for an image inside a button because I couldn't get the default imageView inside the button to resize properly. This way was quicker instead of trying to figure it out. I will refactor this at a later point and use the default imageView inside the button.
+         */
+        
+        mediaControlsPlayButton.addSubview(playButtonImage)
+        NSLayoutConstraint.activate([
+            playButtonImage.leadingAnchor.constraint(equalTo: mediaControlsPlayButton.leadingAnchor),
+            playButtonImage.trailingAnchor.constraint(equalTo: mediaControlsPlayButton.trailingAnchor),
+            playButtonImage.topAnchor.constraint(equalTo: mediaControlsPlayButton.topAnchor),
+            playButtonImage.bottomAnchor.constraint(equalTo: mediaControlsPlayButton.bottomAnchor)
+        ])
+    }
+    
+    // MARK: Button Functions
+    @objc func playButtonPressed(_ button : UIButton) {
+        print("Play")
     }
 }
