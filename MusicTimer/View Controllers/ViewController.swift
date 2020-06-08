@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MediaPlayer
 
 class ViewController: UIViewController {
     
@@ -38,6 +39,11 @@ class ViewController: UIViewController {
         view.backgroundColor = .black
         setupView()
         musicPlayer.getAuth()
+        NotificationCenter.default.addObserver(self, selector: #selector(printCurrentSong), name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
     }
     
     func setupView() {
@@ -69,6 +75,11 @@ class ViewController: UIViewController {
     
     @objc func getPlaylistsPressed(_ button : UIButton) {
         musicPlayer.getUsersPlaylists()
+    }
+    
+    @objc func printCurrentSong() {
+        let song = MPMusicPlayerController.systemMusicPlayer.nowPlayingItem
+        print("Song ID:", song?.playbackStoreID ?? "Cant find song")
     }
 
 

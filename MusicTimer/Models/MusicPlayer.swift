@@ -96,11 +96,11 @@ class MusicPlayer {
     */
     
     func testPlay() {
-        var playParams : Array<Dictionary<String, Any>> = []
+        var songIds = [String]()
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.music.apple.com"
-        components.path = "/v1/me/library/playlists/\(userPlaylists[0].id)/tracks"
+        components.path = "/v1/me/library/playlists/p.LV0PBWquaO7Z6B/tracks"
         
         /*
          This is how you will need to offset to get all songs.
@@ -121,25 +121,15 @@ class MusicPlayer {
             guard let data = data else { fatalError("No data found") }
             
             do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                let jObject = json as! Dictionary<String, Any>
-                let jData = jObject["data"] as! Array<Dictionary<String, Any>>
-                for newJData in jData {
-                    let jAttributes = newJData["attributes"] as! Dictionary<String, Any>
-                    let jPlayParams = jAttributes["playParams"] as! Dictionary<String, Any>
-                    playParams.append(jPlayParams)
-                }
                 let object = try JSONDecoder().decode(PlaylistTracksObject.self, from: data)
                 for song in object.data {
                     print(song.id, song.attributes.name)
+                    songIds.append(song.id)
                 }
-                var paramQueue : [MPMusicPlayerPlayParameters] = []
-                for params in playParams {
-                    let param = MPMusicPlayerPlayParameters(dictionary: params)
-                    paramQueue.append(param!)
-                }
-                let queue = MPMusicPlayerPlayParametersQueueDescriptor(playParametersQueue: paramQueue)
-                self.systemMusicController.setQueue(with: queue)
+                
+                self.systemMusicController.beginGeneratingPlaybackNotifications()
+                let ids = MPMusicPlayerStoreQueueDescriptor(storeIDs: songIds)
+                self.systemMusicController.setQueue(with: ids)
                 self.systemMusicController.play()
             } catch {
                 print(error)
