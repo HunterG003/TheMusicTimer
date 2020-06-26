@@ -74,7 +74,7 @@ class MainViewController: UIViewController {
         setupView()
     }
     
-    // MARK: View Setup Functions
+    // MARK: View Setup Functions0
     fileprivate func createNowPlayingCard() {
         view.addSubview(nowPlayingCardView)
         NSLayoutConstraint.activate([
