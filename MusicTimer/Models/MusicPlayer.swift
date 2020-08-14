@@ -74,10 +74,7 @@ class MusicPlayer {
             guard let data = data else { fatalError("No data got returned") }
             
             do {
-//                let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                print(json)
                 let object = try JSONDecoder().decode(UserPlaylistObject.self, from: data)
-//                print(object)
                 for playlist in object.data {
                     self.userPlaylists.append(Playlist(name: playlist.attributes.name, id: playlist.id))
                     print(playlist.id, playlist.attributes.name)
@@ -91,8 +88,6 @@ class MusicPlayer {
     /*
         This function is created to make sure I can play the music.
         This will not be how I play music in finalized version
-     
-        Have this function to test when Apple fixed their shit. 😠
     */
     
     func testPlay() {
@@ -121,12 +116,9 @@ class MusicPlayer {
             guard let data = data else { fatalError("No data found") }
             
             do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
-                
                 let object = try JSONDecoder().decode(PlaylistTracksObject.self, from: data)
+                
                 for song in object.data {
-                    print(song.attributes.playParams.catalogId, song.attributes.name)
                     songIds.append(song.attributes.playParams.catalogId)
                 }
                 
