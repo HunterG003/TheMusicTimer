@@ -96,7 +96,6 @@ class MusicPlayer {
         }
     }
     
-    // completion is Song Array, Boolean that tells us there's more songs, and the path of the next URL Call
     private func fetchSongs(path: String, completion: @escaping ([Song]) -> Void) {
         var songs = [Song]()
         

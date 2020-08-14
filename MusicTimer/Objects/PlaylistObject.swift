@@ -6,9 +6,10 @@
 //  Copyright © 2020 Hunter Gilliam. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Playlist {
     let name : String
     let id : String
+    let artwork : UIImage
 }
