@@ -121,15 +121,17 @@ class MusicPlayer {
             guard let data = data else { fatalError("No data found") }
             
             do {
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                print(json)
+                
                 let object = try JSONDecoder().decode(PlaylistTracksObject.self, from: data)
                 for song in object.data {
-                    print(song.id, song.attributes.name)
-                    songIds.append(song.id)
+                    print(song.attributes.playParams.catalogId, song.attributes.name)
+                    songIds.append(song.attributes.playParams.catalogId)
                 }
                 
                 self.systemMusicController.beginGeneratingPlaybackNotifications()
-                let ids = MPMusicPlayerStoreQueueDescriptor(storeIDs: songIds)
-                self.systemMusicController.setQueue(with: ids)
+                self.systemMusicController.setQueue(with: songIds)
                 self.systemMusicController.play()
             } catch {
                 print(error)
