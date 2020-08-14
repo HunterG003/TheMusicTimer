@@ -74,7 +74,11 @@ class ViewController: UIViewController {
     }
     
     @objc func getPlaylistsPressed(_ button : UIButton) {
-        musicPlayer.getUsersPlaylists()
+        musicPlayer.getUsersPlaylists { (playlists) in
+            for playlist in playlists {
+                print(playlist.id, playlist.name)
+            }
+        }
     }
     
     @objc func printCurrentSong() {

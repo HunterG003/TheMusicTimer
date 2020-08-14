@@ -17,8 +17,6 @@ class MusicPlayer {
     private var userToken = ""
     private var userStorefront = ""
     
-    private var userPlaylists : [Playlist] = []
-    
     func getAuth() {
         SKCloudServiceController.requestAuthorization { (auth) in
             switch auth{
@@ -58,7 +56,9 @@ class MusicPlayer {
         }
     }
     
-    func getUsersPlaylists() {
+    func getUsersPlaylists(completion: @escaping ([Playlist]) -> Void) {
+        var playlists = [Playlist]()
+        
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.music.apple.com"
@@ -76,9 +76,9 @@ class MusicPlayer {
             do {
                 let object = try JSONDecoder().decode(UserPlaylistObject.self, from: data)
                 for playlist in object.data {
-                    self.userPlaylists.append(Playlist(name: playlist.attributes.name, id: playlist.id))
-                    print(playlist.id, playlist.attributes.name)
+                    playlists.append(Playlist(name: playlist.attributes.name, id: playlist.id))
                 }
+                completion(playlists)
             } catch {
                 print(error)
             }
