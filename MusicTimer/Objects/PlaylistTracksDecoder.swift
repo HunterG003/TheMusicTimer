@@ -10,6 +10,12 @@ import Foundation
 
 struct PlaylistTracksObject : Codable {
     let data : [PlaylistTracksData]
+    let next : String?
+    let meta : PlaylistTracksMeta
+}
+
+struct PlaylistTracksMeta : Codable {
+    let total : Int
 }
 
 struct PlaylistTracksData : Codable {

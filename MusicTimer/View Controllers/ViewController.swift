@@ -32,6 +32,15 @@ class ViewController: UIViewController {
         return button
     }()
     
+    private let getTracksButton : UIButton = {
+        let button = UIButton()
+        button.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        button.setTitle("Get Tracks", for: .normal)
+        button.backgroundColor = .blue
+        button.addTarget(self, action: #selector(getTracksPressed(_:)), for: .touchUpInside)
+        return button
+    }()
+    
     // MARK: VIEW DIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +76,14 @@ class ViewController: UIViewController {
             getPlaylistsButton.widthAnchor.constraint(equalToConstant: 100),
             getPlaylistsButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+        view.addSubview(getTracksButton)
+        getTracksButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            getTracksButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            getTracksButton.topAnchor.constraint(equalTo: playButton.bottomAnchor, constant: 20),
+            getTracksButton.widthAnchor.constraint(equalToConstant: 100),
+            getTracksButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
     @objc func playButtonPressed(_ button : UIButton) {
@@ -77,6 +94,14 @@ class ViewController: UIViewController {
         musicPlayer.getUsersPlaylists { (playlists) in
             for playlist in playlists {
                 print(playlist.id, playlist.name)
+            }
+        }
+    }
+    
+    @objc func getTracksPressed(_ button : UIButton) {
+        musicPlayer.getSongsFromPlaylist(from: "p.PkxV8JvhJZkPD5") { (songs) in
+            for song in songs {
+                print(song.name, song.artist)
             }
         }
     }

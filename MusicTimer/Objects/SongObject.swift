@@ -12,6 +12,6 @@ struct Song {
     let id : String
     let name : String
     let artist : String
-    let artworkUrl : String
+    let artworkUrl : String?
     let durationInMS : Int
 }

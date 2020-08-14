@@ -17,5 +17,5 @@ struct Artwork {
 struct PlayParameters : Codable {
     let id : String
     let kind : String
-    let catalogId : String
+    let catalogId : String?
 }

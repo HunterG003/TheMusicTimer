@@ -85,6 +85,58 @@ class MusicPlayer {
         }.resume()
     }
     
+    func getSongsFromPlaylist(from playlist: String, completion: @escaping ([Song]) -> Void) {
+        var songs = [Song]()
+        
+        let path = "/v1/me/library/playlists/\(playlist)/tracks"
+        
+        self.fetchSongs(path: path) { (arr) in
+            songs.append(contentsOf: arr)
+            completion(songs)
+        }
+    }
+    
+    // completion is Song Array, Boolean that tells us there's more songs, and the path of the next URL Call
+    private func fetchSongs(path: String, completion: @escaping ([Song]) -> Void) {
+        var songs = [Song]()
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.music.apple.com"
+        components.path = path
+        
+//        components.queryItems = [
+//            URLQueryItem(name: "offset", value: offset)
+//        ]
+        
+        let url = components.url!
+        
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(devToken)", forHTTPHeaderField: "Authorization")
+        request.setValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else { return }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                print(json)
+                
+                let object = try JSONDecoder().decode(PlaylistTracksObject.self, from: data)
+                
+                for track in object.data {
+                    let song = Song(id: track.attributes.playParams.catalogId ?? track.attributes.playParams.id, name: track.attributes.name, artist: track.attributes.artistName, artworkUrl: track.attributes.artwork?.url ?? nil, durationInMS: track.attributes.durationInMillis)
+                    songs.append(song)
+                }
+                
+                completion(songs)
+            } catch {
+                print("Error: \(error)")
+            }
+            
+        }.resume()
+    }
+    
     /*
         This function is created to make sure I can play the music.
         This will not be how I play music in finalized version
@@ -119,7 +171,7 @@ class MusicPlayer {
                 let object = try JSONDecoder().decode(PlaylistTracksObject.self, from: data)
                 
                 for song in object.data {
-                    songIds.append(song.attributes.playParams.catalogId)
+                    songIds.append(song.attributes.playParams.catalogId ?? song.attributes.playParams.id)
                 }
                 
                 self.systemMusicController.beginGeneratingPlaybackNotifications()
