@@ -10,11 +10,26 @@ import MediaPlayer
 import StoreKit
 
 class MusicPlayer {
-    let devToken = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlhEOFY3SExVR1EifQ.eyJpc3MiOiJFN1k0NTRRVE41IiwiaWF0IjoxNTg2Mjk1Nzc4LCJleHAiOjE2MDE4NDc3Nzh9.lyTuDTQ0FOdQq_Is2YC1RydTtRsfEPN2-2kY4GQLxbFpxGBiym-3q_N5GPd5d2va4uipMIQeJv_tK8DAy7Ellw" // Invalid After 10/4/2020
-    let controller = SKCloudServiceController()
+    private let devToken = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlhEOFY3SExVR1EifQ.eyJpc3MiOiJFN1k0NTRRVE41IiwiaWF0IjoxNTk4Mjg2MjE1LCJleHAiOjE2MTM4NDE4MTV9.1-jRU6Zf2N5H-LlpAXxqjIdHOugU4zhMlR9HEfnVXKc73Z5KO1aKOxlMXasYROzQSmECu-1ygtZrSKJ5AMkbaA" // Need to move this to a web server
     
+    private let controller = SKCloudServiceController()
+    private let systemMusicController = MPMusicPlayerController.systemMusicPlayer
+    private let appMusicController = MPMusicPlayerController.applicationMusicPlayer
     private var userToken = ""
     private var userStorefront = ""
+    private var userPlaylists = [Playlist]()
+    
+    func getAuth() {
+        SKCloudServiceController.requestAuthorization { (auth) in
+            switch auth{
+            case .authorized:
+                self.getUserToken()
+                self.getStoreFront()
+            default:
+                print("idk")
+            }
+        }
+    }
     
     // Gets User's token and stores it into userToken var
     func getUserToken() {
@@ -42,32 +57,129 @@ class MusicPlayer {
         }
     }
     
-    func testAPIRequest() {
+    func getUsersPlaylists(completion: @escaping ([Playlist]) -> Void) {
+        var playlists = [Playlist]()
         
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.music.apple.com"
-        components.path = "/v1/catalog/\(userStorefront)/search"
+        components.path = "/v1/me/library/playlists"
         
-        components.queryItems = [
-            URLQueryItem(name: "term", value: "workouts"),
-            URLQueryItem(name: "limit", value: "25"),
-            URLQueryItem(name: "types", value: "playlists")
-        ]
+        let url = components.url!
         
-        let url = components.url
-        
-        var request = URLRequest(url: url!)
+        var request = URLRequest(url: url)
         request.setValue("Bearer \(devToken)", forHTTPHeaderField: "Authorization")
         request.setValue(userToken, forHTTPHeaderField: "Music-User-Token")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else { fatalError() }
+            guard let data = data else { fatalError("No data got returned") }
+            
+            do {
+                let object = try JSONDecoder().decode(UserPlaylistObject.self, from: data)
+                for playlist in object.data {
+                    playlists.append(Playlist(name: playlist.attributes.name, id: playlist.id, artwork: UIImage(named: "artwork")!))
+                }
+                self.userPlaylists = playlists
+                completion(playlists)
+            } catch {
+                print(error)
+            }
+        }.resume()
+    }
+    
+    func getSongsFromPlaylist(from playlist: String, completion: @escaping ([Song]) -> Void) {
+        var songs = [Song]()
+        
+        let path = "/v1/me/library/playlists/\(playlist)/tracks"
+        
+        self.fetchSongs(path: path) { (arr) in
+            songs.append(contentsOf: arr)
+            completion(songs)
+        }
+    }
+    
+    private func fetchSongs(path: String, completion: @escaping ([Song]) -> Void) {
+        var songs = [Song]()
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.music.apple.com"
+        components.path = path
+        
+//        components.queryItems = [
+//            URLQueryItem(name: "offset", value: offset)
+//        ]
+        
+        let url = components.url!
+        
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(devToken)", forHTTPHeaderField: "Authorization")
+        request.setValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else { return }
+            
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: [])
                 print(json)
-            } catch {
                 
+                let object = try JSONDecoder().decode(PlaylistTracksObject.self, from: data)
+                
+                for track in object.data {
+                    let song = Song(id: track.attributes.playParams.catalogId ?? track.attributes.playParams.id, name: track.attributes.name, artist: track.attributes.artistName, artworkUrl: track.attributes.artwork?.url ?? nil, durationInMS: track.attributes.durationInMillis)
+                    songs.append(song)
+                }
+                
+                completion(songs)
+            } catch {
+                print("Error: \(error)")
+            }
+            
+        }.resume()
+    }
+    
+    /*
+        This function is created to make sure I can play the music.
+        This will not be how I play music in finalized version
+    */
+    
+    func testPlay() {
+        var songIds = [String]()
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.music.apple.com"
+        components.path = "/v1/me/library/playlists/p.LV0PBWquaO7Z6B/tracks"
+        
+        /*
+         This is how you will need to offset to get all songs.
+         You will use the meta tag in the json to figure out how many songs you will need to get
+         
+        components.queryItems = [
+            URLQueryItem(name: "offset", value: "0")
+        ]
+        */
+        
+        let url = components.url!
+        
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(devToken)", forHTTPHeaderField: "Authorization")
+        request.setValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else { fatalError("No data found") }
+            
+            do {
+                let object = try JSONDecoder().decode(PlaylistTracksObject.self, from: data)
+                
+                for song in object.data {
+                    songIds.append(song.attributes.playParams.catalogId ?? song.attributes.playParams.id)
+                }
+                
+                self.systemMusicController.beginGeneratingPlaybackNotifications()
+                self.systemMusicController.setQueue(with: songIds)
+                self.systemMusicController.play()
+            } catch {
+                print(error)
             }
         }.resume()
     }
