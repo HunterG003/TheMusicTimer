@@ -65,6 +65,8 @@ class MainScreenViewController: UIViewController {
         btn.addTarget(self, action: #selector(playButtonTapped(_:)), for: .touchUpInside)
         return btn
     }()
+    
+    lazy var musicPlayer = MusicPlayer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +76,7 @@ class MainScreenViewController: UIViewController {
         setupPlaylistView()
         setupTimePicker()
         setupPlayButton()
+        setupMusicPlayer()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -135,8 +138,12 @@ class MainScreenViewController: UIViewController {
         playButton.layer.cornerRadius = view.bounds.width / 12
     }
     
+    private func setupMusicPlayer() {
+        musicPlayer.getAuth()
+    }
+    
     @objc func playlistViewTapped() {
-        print("PlaylistView")
+        present(PlaylistSelectionViewController(), animated: true)
     }
     
     @objc func playButtonTapped(_ button : UIButton) {
