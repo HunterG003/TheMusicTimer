@@ -10,18 +10,19 @@ import MediaPlayer
 import StoreKit
 
 class MusicPlayer {
-    private let devToken = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlhEOFY3SExVR1EifQ.eyJpc3MiOiJFN1k0NTRRVE41IiwiaWF0IjoxNTg2Mjk1Nzc4LCJleHAiOjE2MDE4NDc3Nzh9.lyTuDTQ0FOdQq_Is2YC1RydTtRsfEPN2-2kY4GQLxbFpxGBiym-3q_N5GPd5d2va4uipMIQeJv_tK8DAy7Ellw" // Invalid After 10/4/2020
+    private let devToken = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlhEOFY3SExVR1EifQ.eyJpc3MiOiJFN1k0NTRRVE41IiwiaWF0IjoxNTk4Mjg2MjE1LCJleHAiOjE2MTM4NDE4MTV9.1-jRU6Zf2N5H-LlpAXxqjIdHOugU4zhMlR9HEfnVXKc73Z5KO1aKOxlMXasYROzQSmECu-1ygtZrSKJ5AMkbaA" // Need to move this to a web server
+    
     private let controller = SKCloudServiceController()
     private let systemMusicController = MPMusicPlayerController.systemMusicPlayer
     private let appMusicController = MPMusicPlayerController.applicationMusicPlayer
     private var userToken = ""
     private var userStorefront = ""
+    private var userPlaylists = [Playlist]()
     
     func getAuth() {
         SKCloudServiceController.requestAuthorization { (auth) in
             switch auth{
             case .authorized:
-                print("Authorized")
                 self.getUserToken()
                 self.getStoreFront()
             default:
@@ -76,8 +77,9 @@ class MusicPlayer {
             do {
                 let object = try JSONDecoder().decode(UserPlaylistObject.self, from: data)
                 for playlist in object.data {
-                    playlists.append(Playlist(name: playlist.attributes.name, id: playlist.id))
+                    playlists.append(Playlist(name: playlist.attributes.name, id: playlist.id, artwork: UIImage(named: "artwork")!))
                 }
+                self.userPlaylists = playlists
                 completion(playlists)
             } catch {
                 print(error)
