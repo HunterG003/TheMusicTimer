@@ -147,7 +147,7 @@ class MainScreenViewController: UIViewController {
     }
     
     @objc func playButtonTapped(_ button : UIButton) {
-        print("Play")
+        present(NowPlayingViewController(), animated: true)
     }
 
 }
