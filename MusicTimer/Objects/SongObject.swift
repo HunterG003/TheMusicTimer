@@ -14,4 +14,5 @@ struct Song {
     let artist : String
     let artworkUrl : String?
     let durationInMS : Int
+    let runTime : Int // Run Time In seconds
 }

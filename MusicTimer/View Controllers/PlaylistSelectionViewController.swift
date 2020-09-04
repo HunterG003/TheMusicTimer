@@ -70,7 +70,6 @@ class PlaylistSelectionViewController: UIViewController {
                 self.playlists = retrieved
                 DispatchQueue.main.async {
                     self.userPlaylistCollectionView.reloadData()
-                    print("reload")
                 }
             }
         }
@@ -103,8 +102,8 @@ extension PlaylistSelectionViewController: UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selected = playlists[indexPath.row]
-        previousVC.updatePlaylist(name: selected.name, image: selected.artworkUrl)
+        musicPlayer.selectedPlaylist = indexPath.row
+        previousVC.updatePlaylistUI()
         collectionView.deselectItem(at: indexPath, animated: false)
         dismiss(animated: true)
     }

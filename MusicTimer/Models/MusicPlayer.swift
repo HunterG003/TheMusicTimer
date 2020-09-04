@@ -17,52 +17,17 @@ class MusicPlayer {
     fileprivate let appMusicController = MPMusicPlayerController.applicationMusicPlayer
     fileprivate var userToken = ""
     fileprivate var userStorefront = ""
+    fileprivate var hasSubsetBeenFound = false
     var userPlaylists = [Playlist]()
+    var selectedPlaylist = 0
+    var musicQueue = [Song]()
     
-    /*
-        This function is created to make sure I can play the music.
-        This will not be how I play music in finalized version
-    */
+    init() {
+        systemMusicController.beginGeneratingPlaybackNotifications()
+    }
     
-    func testPlay() {
-        var songIds = [String]()
-        var components = URLComponents()
-        components.scheme = "https"
-        components.host = "api.music.apple.com"
-        components.path = "/v1/me/library/playlists/p.LV0PBWquaO7Z6B/tracks"
-        
-        /*
-         This is how you will need to offset to get all songs.
-         You will use the meta tag in the json to figure out how many songs you will need to get
-         
-        components.queryItems = [
-            URLQueryItem(name: "offset", value: "0")
-        ]
-        */
-        
-        let url = components.url!
-        
-        var request = URLRequest(url: url)
-        request.setValue("Bearer \(devToken)", forHTTPHeaderField: "Authorization")
-        request.setValue(userToken, forHTTPHeaderField: "Music-User-Token")
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else { fatalError("No data found") }
-            
-            do {
-                let object = try JSONDecoder().decode(PlaylistTracksObject.self, from: data)
-                
-                for song in object.data {
-                    songIds.append(song.attributes.playParams.catalogId ?? song.attributes.playParams.id)
-                }
-                
-                self.systemMusicController.beginGeneratingPlaybackNotifications()
-                self.systemMusicController.setQueue(with: songIds)
-                self.systemMusicController.play()
-            } catch {
-                print(error)
-            }
-        }.resume()
+    deinit {
+        systemMusicController.endGeneratingPlaybackNotifications()
     }
 }
 
@@ -227,13 +192,10 @@ extension MusicPlayer {
             guard let data = data else { return }
             
             do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
-                
                 let object = try JSONDecoder().decode(PlaylistTracksObject.self, from: data)
                 
                 for track in object.data {
-                    let song = Song(id: track.attributes.playParams.catalogId ?? track.attributes.playParams.id, name: track.attributes.name, artist: track.attributes.artistName, artworkUrl: track.attributes.artwork?.url ?? nil, durationInMS: track.attributes.durationInMillis)
+                    let song = Song(id: track.attributes.playParams.catalogId ?? track.attributes.playParams.id, name: track.attributes.name, artist: track.attributes.artistName, artworkUrl: track.attributes.artwork?.url ?? nil, durationInMS: track.attributes.durationInMillis, runTime: track.attributes.durationInMillis / 1000)
                     songs.append(song)
                 }
                 
@@ -245,4 +207,94 @@ extension MusicPlayer {
         }.resume()
     }
     
+}
+
+// MARK: MT Specific Functions
+extension MusicPlayer {
+    func findSongSubset(songs : [Song], numberOfSongs : Int, timeToFind : Int) -> [Song] {
+        
+        var dp : [[Bool?]] = Array(repeating: Array(repeating: nil, count: timeToFind + 1), count: numberOfSongs)
+        
+        if numberOfSongs == 0 || timeToFind < 0 {
+//            NotificationCenter.default.post(name: NSNotification.Name.noSongsFound, object: nil)
+            return []
+        }
+        
+        for i in 0..<numberOfSongs {
+            dp[i][0] = true
+        }
+        
+        if songs[0].runTime <= timeToFind {
+            dp[0][songs[0].runTime] = true
+        }
+        
+        for i in 1..<numberOfSongs {
+            for j in 0..<timeToFind+1 {
+                dp[i][j] = (songs[i].runTime <= j) ? (dp[i-1][j] ?? false || dp [i-1][j-songs[i].runTime] ?? false) : dp[i-1][j]
+            }
+        }
+        
+        if dp[numberOfSongs-1][timeToFind] == false {
+            print("There are no subsets with sum", timeToFind)
+//            NotificationCenter.default.post(name: NSNotification.Name.noSongsFound, object: nil)
+            return []
+        }
+        
+        hasSubsetBeenFound = false
+        
+        return searchWithRecursion(songs: songs, i: numberOfSongs - 1, timeToFind: timeToFind, subset: [], dp: dp)
+    }
+    
+    private func searchWithRecursion(songs : [Song], i : Int, timeToFind : Int, subset : [Song], dp : [[Bool?]]) -> [Song] {
+        
+        var newSubset = subset
+        
+        if i == 0 && timeToFind != 0 && dp[0][timeToFind] ?? false {
+            newSubset.append(songs[i])
+            hasSubsetBeenFound = true
+            return newSubset
+        }
+        
+        if i == 0 && timeToFind == 0 {
+            hasSubsetBeenFound = true
+            return newSubset
+        }
+        
+        if !hasSubsetBeenFound {
+            if dp[i-1][timeToFind] ?? false {
+                let b : [Song] = newSubset
+                return searchWithRecursion(songs: songs, i: i-1, timeToFind: timeToFind, subset: b, dp: dp)
+            }
+            
+            if timeToFind >= songs[i].runTime && dp[i-1][timeToFind-songs[i].runTime] ?? false {
+                newSubset.append(songs[i])
+                return searchWithRecursion(songs: songs, i: i-1, timeToFind: timeToFind-songs[i].runTime, subset: newSubset, dp: dp)
+            }
+        }
+        
+//        NotificationCenter.default.post(name: NSNotification.Name.noSongsFound, object: nil)
+        return []
+    }
+}
+
+// MARK: The Infamous Play Function
+extension MusicPlayer {
+    func play(playlist: Playlist, timeToPlay: Int, completion: @escaping () -> Void) {
+        getSongsFromPlaylist(from: playlist.id) { songs in
+            self.musicQueue = self.findSongSubset(songs: songs.shuffled(), numberOfSongs: songs.count, timeToFind: timeToPlay)
+            var ids = [String]()
+            self.musicQueue.forEach { (i) in
+                ids.append(i.id)
+                print(i.name)
+            }
+            self.systemMusicController.setQueue(with: ids)
+            self.systemMusicController.prepareToPlay { (err) in
+                if let err = err {
+                    fatalError("\(err)")
+                }
+                self.systemMusicController.play()
+            }
+            completion()
+        }
+    }
 }
