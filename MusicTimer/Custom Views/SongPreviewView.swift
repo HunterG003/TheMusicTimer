@@ -68,8 +68,13 @@ class SongPreviewView: UIView {
             separator.heightAnchor.constraint(equalToConstant: 2),
             
             songInfoLabel.leadingAnchor.constraint(equalTo: headingLabel.leadingAnchor),
-            songInfoLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+            songInfoLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            songInfoLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        separator.backgroundColor = .label
     }
 
 }

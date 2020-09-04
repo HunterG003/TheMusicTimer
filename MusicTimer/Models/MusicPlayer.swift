@@ -195,7 +195,9 @@ extension MusicPlayer {
                 let object = try JSONDecoder().decode(PlaylistTracksObject.self, from: data)
                 
                 for track in object.data {
-                    let song = Song(id: track.attributes.playParams.catalogId ?? track.attributes.playParams.id, name: track.attributes.name, artist: track.attributes.artistName, artworkUrl: track.attributes.artwork?.url ?? nil, durationInMS: track.attributes.durationInMillis, runTime: track.attributes.durationInMillis / 1000)
+                    var url = track.attributes.artwork?.url ?? ""
+                    url = url.replacingOccurrences(of: "{w}x{h}", with: "500x500")
+                    let song = Song(id: track.attributes.playParams.catalogId ?? track.attributes.playParams.id, name: track.attributes.name, artist: track.attributes.artistName, artworkUrl: url, durationInMS: track.attributes.durationInMillis, runTime: track.attributes.durationInMillis / 1000)
                     songs.append(song)
                 }
                 

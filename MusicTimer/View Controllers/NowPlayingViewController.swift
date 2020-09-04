@@ -63,6 +63,7 @@ class NowPlayingViewController: UIViewController {
         view.contentMode = .scaleAspectFit
         view.image = UIImage(systemName: "play")
         view.tintColor = .white
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -72,6 +73,7 @@ class NowPlayingViewController: UIViewController {
         view.contentMode = .scaleAspectFit
         view.image = UIImage(systemName: "backward")
         view.tintColor = .white
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -81,6 +83,7 @@ class NowPlayingViewController: UIViewController {
         view.contentMode = .scaleAspectFit
         view.image = UIImage(systemName: "forward")
         view.tintColor = .white
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -111,6 +114,12 @@ class NowPlayingViewController: UIViewController {
         view.headingLabel.text = "Last Song"
         return view
     }()
+    
+    var musicPlayer : MusicPlayer!
+    private let systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer
+    private let playImage = UIImage(systemName: "play")
+    private let pauseImage = UIImage(systemName: "pause")
+    private var upNextCachedImage : UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,6 +129,72 @@ class NowPlayingViewController: UIViewController {
         setupSongInfo()
         setupMediaControls()
         setupQueueView()
+        updateUI()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePlayButton), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        backwardButton.tintColor = .label
+        playButton.tintColor = .label
+        forwardButton.tintColor = .label
+    }
+    
+    @objc private func updateUI() {
+        if upNextCachedImage != nil {
+            backgroundImageView.image = upNextCachedImage
+            backgroundImageView.contentMode = .scaleAspectFill
+            songImageView.image = upNextCachedImage
+        } else {
+            backgroundImageView.downloaded(from: musicPlayer.musicQueue[0].artworkUrl ?? "", contentMode: .scaleAspectFill, completion: {
+                DispatchQueue.main.async {
+                    self.songImageView.image = self.backgroundImageView.image
+                }
+            })
+        }
+        
+        let currSong = systemMusicPlayer.nowPlayingItem
+        songTitleLabel.text = currSong?.title
+        songArtistLabel.text = currSong?.artist
+        songsRemainingLabel.text = "\(musicPlayer.musicQueue.count - systemMusicPlayer.indexOfNowPlayingItem) Songs Remaining"
+        
+        if systemMusicPlayer.indexOfNowPlayingItem < musicPlayer.musicQueue.count - 1 {
+            let index = systemMusicPlayer.indexOfNowPlayingItem + 1
+            let nextSong = musicPlayer.musicQueue[index]
+            upNextView.imageView.downloaded(from: nextSong.artworkUrl ?? "", completion: {
+                DispatchQueue.main.async {
+                    self.upNextCachedImage = self.upNextView.imageView.image
+                }
+            })
+            upNextView.songInfoLabel.text = "\(nextSong.name) - \(nextSong.artist)"
+        } else {
+            songsRemainingLabel.text = "Last Song"
+            let nextSong = musicPlayer.musicQueue[0]
+            upNextView.imageView.downloaded(from: nextSong.artworkUrl ?? "", completion: {
+                DispatchQueue.main.async {
+                    self.upNextCachedImage = self.upNextView.imageView.image
+                }
+            })
+            upNextView.songInfoLabel.text = "\(nextSong.name) - \(nextSong.artist)"
+        }
+        
+        guard let lastSong = musicPlayer.musicQueue.last else { return }
+        
+        lastSongView.imageView.downloaded(from: lastSong.artworkUrl ?? "", completion: {})
+        lastSongView.songInfoLabel.text = "\(lastSong.name) - \(lastSong.artist)"
+    }
+    
+    @objc private func updatePlayButton() {
+        if systemMusicPlayer.playbackState == .playing {
+            playButton.image = pauseImage
+        } else {
+            playButton.image = playImage
+        }
     }
     
     private func setupBackground() {
@@ -154,6 +229,8 @@ class NowPlayingViewController: UIViewController {
             
             songTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             songTitleLabel.topAnchor.constraint(equalTo: songImageView.bottomAnchor, constant: 10),
+            songTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            songTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
             
             songArtistLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             songArtistLabel.topAnchor.constraint(equalTo: songTitleLabel.bottomAnchor, constant: 5)
@@ -190,6 +267,21 @@ class NowPlayingViewController: UIViewController {
             volumeSlider.trailingAnchor.constraint(equalTo: forwardButton.trailingAnchor),
             volumeSlider.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/14)
         ])
+        
+        let playTap = UITapGestureRecognizer(target: self, action: #selector(playButtonTapped))
+        playButton.addGestureRecognizer(playTap)
+        
+        let backTap = UITapGestureRecognizer(target: self, action: #selector(backwardButtonTapped))
+        backwardButton.addGestureRecognizer(backTap)
+        
+        let forwardTap = UITapGestureRecognizer(target: self, action: #selector(forwardButtonTapped))
+        forwardButton.addGestureRecognizer(forwardTap)
+        
+        if systemMusicPlayer.playbackState == .playing {
+            playButton.image = pauseImage
+        } else {
+            playButton.image = playImage
+        }
     }
     
     private func setupQueueView() {
@@ -214,15 +306,21 @@ class NowPlayingViewController: UIViewController {
     }
     
     @objc func playButtonTapped() {
-        print("play")
+        if systemMusicPlayer.playbackState == .playing {
+            systemMusicPlayer.pause()
+            playButton.image = playImage
+        } else {
+            systemMusicPlayer.play()
+            playButton.image = pauseImage
+        }
     }
     
     @objc func backwardButtonTapped() {
-        print("backward")
+        systemMusicPlayer.skipToPreviousItem()
     }
     
     @objc func forwardButtonTapped() {
-        print("forward")
+        systemMusicPlayer.skipToNextItem()
     }
 
 }

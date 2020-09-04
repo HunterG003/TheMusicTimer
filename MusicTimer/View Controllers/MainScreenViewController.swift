@@ -83,7 +83,7 @@ class MainScreenViewController: UIViewController {
     func updatePlaylistUI() {
         if !musicPlayer.userPlaylists.isEmpty {
             let playlist = musicPlayer.userPlaylists[musicPlayer.selectedPlaylist]
-            playlistImage.downloaded(from: playlist.artworkUrl)
+            playlistImage.downloaded(from: playlist.artworkUrl, completion: {})
             playlistNameLabel.text = playlist.name
         }
     }
@@ -162,7 +162,9 @@ class MainScreenViewController: UIViewController {
         let timeToPlay = timePicker.countDownDuration
         musicPlayer.play(playlist: musicPlayer.userPlaylists[musicPlayer.selectedPlaylist], timeToPlay: Int(timeToPlay), completion: {
             DispatchQueue.main.async {
-                self.present(NowPlayingViewController(), animated: true)
+                let vc = NowPlayingViewController()
+                vc.musicPlayer = self.musicPlayer
+                self.present(vc, animated: true)
             }
         })
     }

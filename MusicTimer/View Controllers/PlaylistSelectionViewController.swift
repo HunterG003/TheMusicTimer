@@ -90,7 +90,7 @@ extension PlaylistSelectionViewController: UICollectionViewDelegate, UICollectio
         cell.title.text = playlist.name
         
         if !playlist.artworkUrl.isEmpty {
-            cell.imageView.downloaded(from: playlist.artworkUrl)
+            cell.imageView.downloaded(from: playlist.artworkUrl, completion: {})
         }
         
         return cell
