@@ -79,6 +79,11 @@ class MainScreenViewController: UIViewController {
         setupMusicPlayer()
     }
     
+    func updatePlaylist(name: String, image: String) {
+        playlistImage.downloaded(from: image)
+        playlistNameLabel.text = name
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         playlistView.layer.borderColor = UIColor.label.cgColor
         playlistView.layer.shadowColor = UIColor.label.cgColor
@@ -143,7 +148,10 @@ class MainScreenViewController: UIViewController {
     }
     
     @objc func playlistViewTapped() {
-        present(PlaylistSelectionViewController(), animated: true)
+        let vc = PlaylistSelectionViewController()
+        vc.musicPlayer = self.musicPlayer
+        vc.previousVC = self
+        present(vc, animated: true)
     }
     
     @objc func playButtonTapped(_ button : UIButton) {

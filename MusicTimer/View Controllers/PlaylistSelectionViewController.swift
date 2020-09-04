@@ -10,6 +10,8 @@ import UIKit
 
 class PlaylistSelectionViewController: UIViewController {
     
+    var musicPlayer : MusicPlayer!
+    
     private let userPlaylistHeading : UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -30,12 +32,17 @@ class PlaylistSelectionViewController: UIViewController {
         view.register(PlaylistCell.self, forCellWithReuseIdentifier: "PlaylistCell")
         return view
     }()
+    
+    private var playlists = [Playlist]()
+    var previousVC : MainScreenViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        playlists = musicPlayer.userPlaylists
         view.backgroundColor = .systemBackground
+        loadPlaylists()
         setupUserPlaylist()
     }
     
@@ -56,16 +63,36 @@ class PlaylistSelectionViewController: UIViewController {
             userPlaylistCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    private func loadPlaylists() {
+        if playlists.isEmpty {
+            musicPlayer.getUsersPlaylists { (retrieved) in
+                self.playlists = retrieved
+                DispatchQueue.main.async {
+                    self.userPlaylistCollectionView.reloadData()
+                    print("reload")
+                }
+            }
+        }
+    }
 
 }
 
 extension PlaylistSelectionViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return self.playlists.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlaylistCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlaylistCell", for: indexPath) as! PlaylistCell
+        
+        let playlist = playlists[indexPath.row]
+        
+        cell.title.text = playlist.name
+        
+        if !playlist.artworkUrl.isEmpty {
+            cell.imageView.downloaded(from: playlist.artworkUrl)
+        }
         
         return cell
     }
@@ -73,5 +100,12 @@ extension PlaylistSelectionViewController: UICollectionViewDelegate, UICollectio
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let edges = view.bounds.width / 2.5
         return CGSize(width: edges, height: edges)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selected = playlists[indexPath.row]
+        previousVC.updatePlaylist(name: selected.name, image: selected.artworkUrl)
+        collectionView.deselectItem(at: indexPath, animated: false)
+        dismiss(animated: true)
     }
 }
