@@ -146,7 +146,7 @@ class MiniNowPlayingView: UIView {
     }
     
     @objc func viewTapped() {
-        print("view")
+        NotificationCenter.default.post(.init(name: .init("MiniViewTapped")))
     }
     
     @objc func updateUI() {

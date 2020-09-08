@@ -88,10 +88,12 @@ class MainScreenViewController: UIViewController {
         updatePlaylistUI()
         setupMiniPlayer()
         NotificationCenter.default.addObserver(self, selector: #selector(playbackStateChanged), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(miniViewTapped), name: .init(rawValue: "MiniViewTapped"), object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .init("MiniViewTapped"), object: nil)
     }
     
     func updatePlaylistUI() {
@@ -171,7 +173,7 @@ class MainScreenViewController: UIViewController {
             miniPlayer.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/10)
         ])
         
-        if systemMusicPlayer.playbackState == .playing || systemMusicPlayer.playbackState == .paused {
+        if musicPlayer.isPlaying {
             miniPlayer.isHidden = false
         } else {
             miniPlayer.isHidden = true
@@ -201,11 +203,17 @@ class MainScreenViewController: UIViewController {
     }
     
     @objc func playbackStateChanged() {
-        if systemMusicPlayer.playbackState == .playing || systemMusicPlayer.playbackState == .paused {
+        if musicPlayer.isPlaying {
             miniPlayer.isHidden = false
         } else {
             miniPlayer.isHidden = true
         }
+    }
+    
+    @objc func miniViewTapped() {
+        let vc = NowPlayingViewController()
+        vc.musicPlayer = self.musicPlayer
+        self.present(vc, animated: true)
     }
 
 }

@@ -21,6 +21,7 @@ class MusicPlayer {
     var userPlaylists = [Playlist]()
     var selectedPlaylist = 0
     var musicQueue = [Song]()
+    var isPlaying = false
     
     init() {
         systemMusicController.beginGeneratingPlaybackNotifications()
@@ -295,6 +296,7 @@ extension MusicPlayer {
                     fatalError("\(err)")
                 }
                 self.systemMusicController.play()
+                self.isPlaying = true
             }
             completion()
         }
