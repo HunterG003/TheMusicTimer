@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MediaPlayer
 
 class MainScreenViewController: UIViewController {
     
@@ -66,7 +67,14 @@ class MainScreenViewController: UIViewController {
         return btn
     }()
     
+    private let miniPlayer : MiniNowPlayingView = {
+        let view = MiniNowPlayingView(image: UIImage(named: "artwork")!, label: "Stoney")
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     lazy var musicPlayer = MusicPlayer()
+    let systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +86,12 @@ class MainScreenViewController: UIViewController {
         setupPlayButton()
         setupMusicPlayer()
         updatePlaylistUI()
+        setupMiniPlayer()
+        NotificationCenter.default.addObserver(self, selector: #selector(playbackStateChanged), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
     }
     
     func updatePlaylistUI() {
@@ -147,6 +161,23 @@ class MainScreenViewController: UIViewController {
         playButton.layer.cornerRadius = view.bounds.width / 12
     }
     
+    private func setupMiniPlayer() {
+        view.addSubview(miniPlayer)
+        
+        NSLayoutConstraint.activate([
+            miniPlayer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            miniPlayer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            miniPlayer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            miniPlayer.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/10)
+        ])
+        
+        if systemMusicPlayer.playbackState == .playing || systemMusicPlayer.playbackState == .paused {
+            miniPlayer.isHidden = false
+        } else {
+            miniPlayer.isHidden = true
+        }
+    }
+    
     private func setupMusicPlayer() {
         musicPlayer.getAuth()
     }
@@ -167,6 +198,14 @@ class MainScreenViewController: UIViewController {
                 self.present(vc, animated: true)
             }
         })
+    }
+    
+    @objc func playbackStateChanged() {
+        if systemMusicPlayer.playbackState == .playing || systemMusicPlayer.playbackState == .paused {
+            miniPlayer.isHidden = false
+        } else {
+            miniPlayer.isHidden = true
+        }
     }
 
 }

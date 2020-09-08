@@ -146,6 +146,7 @@ class NowPlayingViewController: UIViewController {
     }
     
     @objc private func updateUI() {
+        
         if upNextCachedImage != nil {
             backgroundImageView.image = upNextCachedImage
             backgroundImageView.contentMode = .scaleAspectFill
@@ -282,6 +283,8 @@ class NowPlayingViewController: UIViewController {
         } else {
             playButton.image = playImage
         }
+        
+        volumeSlider.tintColor = .label
     }
     
     private func setupQueueView() {

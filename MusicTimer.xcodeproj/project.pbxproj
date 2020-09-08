@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A3410AF2507EE180037AF68 /* MiniNowPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410AE2507EE180037AF68 /* MiniNowPlayingView.swift */; };
 		5A7FA1142444FC1C00BE7DAA /* CommonMusicObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FA1132444FC1C00BE7DAA /* CommonMusicObjects.swift */; };
 		5A7FA1162444FF8200BE7DAA /* UserPlaylistDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FA1152444FF8200BE7DAA /* UserPlaylistDecoder.swift */; };
 		5A7FA11A24450A7C00BE7DAA /* PlaylistObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FA11924450A7C00BE7DAA /* PlaylistObject.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A3410AE2507EE180037AF68 /* MiniNowPlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniNowPlayingView.swift; sourceTree = "<group>"; };
 		5A7FA1132444FC1C00BE7DAA /* CommonMusicObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMusicObjects.swift; sourceTree = "<group>"; };
 		5A7FA1152444FF8200BE7DAA /* UserPlaylistDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPlaylistDecoder.swift; sourceTree = "<group>"; };
 		5A7FA11924450A7C00BE7DAA /* PlaylistObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistObject.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				5ACA981725017571001933EF /* SongPreviewView.swift */,
+				5A3410AE2507EE180037AF68 /* MiniNowPlayingView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 			files = (
 				5A7FA1142444FC1C00BE7DAA /* CommonMusicObjects.swift in Sources */,
 				5ACA981B2502B999001933EF /* ImageView Extension.swift in Sources */,
+				5A3410AF2507EE180037AF68 /* MiniNowPlayingView.swift in Sources */,
 				5A7FA11A24450A7C00BE7DAA /* PlaylistObject.swift in Sources */,
 				5AE9BADE243D22EE00FEC215 /* MusicPlayer.swift in Sources */,
 				5ACA981825017571001933EF /* SongPreviewView.swift in Sources */,
