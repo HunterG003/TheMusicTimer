@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5A3410AF2507EE180037AF68 /* MiniNowPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410AE2507EE180037AF68 /* MiniNowPlayingView.swift */; };
+		5A3410B3250A98D50037AF68 /* RoundedImageWithShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410B2250A98D50037AF68 /* RoundedImageWithShadow.swift */; };
+		5A3410B5250A9EFC0037AF68 /* UIImage Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410B4250A9EFC0037AF68 /* UIImage Extension.swift */; };
 		5A7FA1142444FC1C00BE7DAA /* CommonMusicObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FA1132444FC1C00BE7DAA /* CommonMusicObjects.swift */; };
 		5A7FA1162444FF8200BE7DAA /* UserPlaylistDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FA1152444FF8200BE7DAA /* UserPlaylistDecoder.swift */; };
 		5A7FA11A24450A7C00BE7DAA /* PlaylistObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FA11924450A7C00BE7DAA /* PlaylistObject.swift */; };
@@ -28,6 +30,8 @@
 
 /* Begin PBXFileReference section */
 		5A3410AE2507EE180037AF68 /* MiniNowPlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniNowPlayingView.swift; sourceTree = "<group>"; };
+		5A3410B2250A98D50037AF68 /* RoundedImageWithShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageWithShadow.swift; sourceTree = "<group>"; };
+		5A3410B4250A9EFC0037AF68 /* UIImage Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage Extension.swift"; sourceTree = "<group>"; };
 		5A7FA1132444FC1C00BE7DAA /* CommonMusicObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMusicObjects.swift; sourceTree = "<group>"; };
 		5A7FA1152444FF8200BE7DAA /* UserPlaylistDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPlaylistDecoder.swift; sourceTree = "<group>"; };
 		5A7FA11924450A7C00BE7DAA /* PlaylistObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistObject.swift; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 			children = (
 				5ACA981725017571001933EF /* SongPreviewView.swift */,
 				5A3410AE2507EE180037AF68 /* MiniNowPlayingView.swift */,
+				5A3410B2250A98D50037AF68 /* RoundedImageWithShadow.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				5ACA981A2502B999001933EF /* ImageView Extension.swift */,
+				5A3410B4250A9EFC0037AF68 /* UIImage Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -225,12 +231,14 @@
 				5AE9BADE243D22EE00FEC215 /* MusicPlayer.swift in Sources */,
 				5ACA981825017571001933EF /* SongPreviewView.swift in Sources */,
 				5ACA980E24FEC68D001933EF /* PlaylistSelectionViewController.swift in Sources */,
+				5A3410B5250A9EFC0037AF68 /* UIImage Extension.swift in Sources */,
 				5ACA9815250169D2001933EF /* NowPlayingViewController.swift in Sources */,
 				5A7FA1162444FF8200BE7DAA /* UserPlaylistDecoder.swift in Sources */,
 				5ACA981324FEC973001933EF /* PlaylistCell.swift in Sources */,
 				5A9E2C892434F39400C29103 /* AppDelegate.swift in Sources */,
 				5A7FA11C24450DDE00BE7DAA /* PlaylistTracksDecoder.swift in Sources */,
 				5A9E2C8B2434F39400C29103 /* SceneDelegate.swift in Sources */,
+				5A3410B3250A98D50037AF68 /* RoundedImageWithShadow.swift in Sources */,
 				5A7FA11E24450FDC00BE7DAA /* SongObject.swift in Sources */,
 				5ACA980C24FEBD2E001933EF /* MainScreenViewController.swift in Sources */,
 			);

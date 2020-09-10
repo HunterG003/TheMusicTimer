@@ -22,18 +22,14 @@ class NowPlayingViewController: UIViewController {
     private let blurEffectView : UIVisualEffectView = {
         let view = UIVisualEffectView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        let blur = UIBlurEffect(style: .prominent)
+        let blur = UIBlurEffect(style: .systemMaterial)
         view.effect = blur
         return view
     }()
     
-    private let songImageView : UIImageView = {
-        let view = UIImageView()
+    private let songImageView : RoundedImageWithShadow = {
+        let view = RoundedImageWithShadow(cornerRadius: 20)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentMode = .scaleAspectFit
-        view.image = UIImage(named: "artwork")
-        view.layer.cornerRadius = 20
-        view.layer.masksToBounds = true
         return view
     }()
     
@@ -145,18 +141,30 @@ class NowPlayingViewController: UIViewController {
         forwardButton.tintColor = .label
     }
     
+    private func animateUIChange(backgroundImage: UIImage) {
+        UIView.transition(with: self.backgroundImageView, duration: 1.0, options: .transitionCrossDissolve) {
+            self.backgroundImageView.image = backgroundImage
+        } completion: { (_) in
+            
+        }
+
+    }
+    
     @objc private func updateUI() {
         
         if upNextCachedImage != nil {
             backgroundImageView.image = upNextCachedImage
             backgroundImageView.contentMode = .scaleAspectFill
-            songImageView.image = upNextCachedImage
+            songImageView.updateImage(with: upNextCachedImage!)
+            self.animateUIChange(backgroundImage: upNextCachedImage!)
         } else {
-            backgroundImageView.downloaded(from: musicPlayer.musicQueue[0].artworkUrl ?? "", contentMode: .scaleAspectFill, completion: {
+            let tempImageView = UIImageView()
+            tempImageView.downloaded(from: musicPlayer.musicQueue[0].artworkUrl ?? "") {
                 DispatchQueue.main.async {
-                    self.songImageView.image = self.backgroundImageView.image
+                    self.animateUIChange(backgroundImage: tempImageView.image!)
+                    self.songImageView.updateImage(with: tempImageView.image!)
                 }
-            })
+            }
         }
         
         let currSong = systemMusicPlayer.nowPlayingItem

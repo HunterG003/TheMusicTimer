@@ -69,9 +69,11 @@ class PlaylistSelectionViewController: UIViewController {
             musicPlayer.getUsersPlaylists { (retrieved) in
                 self.playlists = retrieved
                 self.musicPlayer.selectedPlaylist = 0
-                DispatchQueue.main.async {
-                    self.userPlaylistCollectionView.reloadData()
-                    self.previousVC.updatePlaylistUI()
+                if self.musicPlayer.tempCount == retrieved.count {
+                    DispatchQueue.main.async {
+                        self.userPlaylistCollectionView.reloadData()
+                        self.previousVC.updatePlaylistUI()
+                    }
                 }
             }
         }

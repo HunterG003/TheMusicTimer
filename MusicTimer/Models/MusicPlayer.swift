@@ -22,6 +22,7 @@ class MusicPlayer {
     var selectedPlaylist = 0
     var musicQueue = [Song]()
     var isPlaying = false
+    var tempCount = 0
     
     init() {
         systemMusicController.beginGeneratingPlaybackNotifications()
@@ -49,7 +50,7 @@ extension MusicPlayer {
     }
     
     // Gets User's token and stores it into userToken var
-    func getUserToken(completion: @escaping () -> Void) {
+    fileprivate func getUserToken(completion: @escaping () -> Void) {
         controller.requestUserToken(forDeveloperToken: devToken) { (token, err) in
             if let err = err {
                 print("Error getting user token: \(err)")
@@ -63,7 +64,7 @@ extension MusicPlayer {
     }
     
     // Gets User's storefront and stores it into userStorefront var
-    func getStoreFront() {
+    fileprivate func getStoreFront() {
         controller.requestStorefrontCountryCode { (store, err) in
             if let err = err {
                 print("Error getting storefront: \(err)")
@@ -98,6 +99,7 @@ extension MusicPlayer {
             
             do {
                 let object = try JSONDecoder().decode(UserPlaylistObject.self, from: data)
+                self.tempCount = object.data.count
                 for playlist in object.data {
                     if playlist.attributes.artwork?.url == nil {
                         self.getImageForAPlaylist(playlist: playlist.id, completion: { url in
