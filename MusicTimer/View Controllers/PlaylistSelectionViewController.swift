@@ -68,8 +68,10 @@ class PlaylistSelectionViewController: UIViewController {
         if playlists.isEmpty {
             musicPlayer.getUsersPlaylists { (retrieved) in
                 self.playlists = retrieved
+                self.musicPlayer.selectedPlaylist = 0
                 DispatchQueue.main.async {
                     self.userPlaylistCollectionView.reloadData()
+                    self.previousVC.updatePlaylistUI()
                 }
             }
         }

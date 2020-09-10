@@ -34,11 +34,13 @@ class MusicPlayer {
 
 // MARK: Setup Functions
 extension MusicPlayer {
-    func getAuth() {
+    func getAuth(completion: @escaping () -> Void) {
         SKCloudServiceController.requestAuthorization { (auth) in
             switch auth{
             case .authorized:
-                self.getUserToken()
+                self.getUserToken(completion: {
+                    completion()
+                })
                 self.getStoreFront()
             default:
                 print("idk")
@@ -47,7 +49,7 @@ extension MusicPlayer {
     }
     
     // Gets User's token and stores it into userToken var
-    func getUserToken() {
+    func getUserToken(completion: @escaping () -> Void) {
         controller.requestUserToken(forDeveloperToken: devToken) { (token, err) in
             if let err = err {
                 print("Error getting user token: \(err)")
@@ -56,6 +58,7 @@ extension MusicPlayer {
             guard let token = token else { fatalError("No Token") }
             self.userToken = token
             print("User Token:", self.userToken)
+            completion()
         }
     }
     

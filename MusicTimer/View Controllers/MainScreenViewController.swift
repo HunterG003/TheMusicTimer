@@ -170,7 +170,7 @@ class MainScreenViewController: UIViewController {
             miniPlayer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             miniPlayer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             miniPlayer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            miniPlayer.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/10)
+            miniPlayer.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/9)
         ])
         
         if musicPlayer.isPlaying {
@@ -181,7 +181,12 @@ class MainScreenViewController: UIViewController {
     }
     
     private func setupMusicPlayer() {
-        musicPlayer.getAuth()
+        musicPlayer.getAuth(completion: {
+            let playlistVC = PlaylistSelectionViewController()
+            playlistVC.musicPlayer = self.musicPlayer
+            playlistVC.previousVC = self
+            self.present(playlistVC, animated: true)
+        })
     }
     
     @objc func playlistViewTapped() {

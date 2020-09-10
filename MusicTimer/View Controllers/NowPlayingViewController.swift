@@ -266,7 +266,7 @@ class NowPlayingViewController: UIViewController {
             volumeSlider.topAnchor.constraint(equalTo: playButton.bottomAnchor, constant: 10),
             volumeSlider.leadingAnchor.constraint(equalTo: backwardButton.leadingAnchor),
             volumeSlider.trailingAnchor.constraint(equalTo: forwardButton.trailingAnchor),
-            volumeSlider.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/14)
+            volumeSlider.heightAnchor.constraint(equalTo: songImageView.heightAnchor, multiplier: 1/5)
         ])
         
         let playTap = UITapGestureRecognizer(target: self, action: #selector(playButtonTapped))

@@ -120,9 +120,14 @@ class MiniNowPlayingView: UIView {
         forwardButton.addGestureRecognizer(forwardTap)
         
         let viewTap = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(viewTapped))
+        swipe.direction = .up
         imageView.addGestureRecognizer(viewTap)
+        imageView.addGestureRecognizer(swipe)
         label.addGestureRecognizer(viewTap)
+        label.addGestureRecognizer(swipe)
         addGestureRecognizer(viewTap)
+        addGestureRecognizer(swipe)
         isUserInteractionEnabled = true
         
         if let item = systemMusicController.nowPlayingItem {
