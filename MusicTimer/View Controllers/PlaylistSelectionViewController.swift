@@ -12,6 +12,8 @@ class PlaylistSelectionViewController: UIViewController {
     
     var musicPlayer : MusicPlayer!
     
+    private let activityView = ActivityViewController()
+    
     private let userPlaylistHeading : UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -44,6 +46,15 @@ class PlaylistSelectionViewController: UIViewController {
         view.backgroundColor = .systemBackground
         loadPlaylists()
         setupUserPlaylist()
+        createActivityView()
+    }
+    
+    private func createActivityView() {
+        view.addSubview(activityView.view)
+    }
+    
+    private func destroyActivityView() {
+        activityView.view.removeFromSuperview()
     }
     
     private func setupUserPlaylist() {
@@ -73,6 +84,7 @@ class PlaylistSelectionViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.userPlaylistCollectionView.reloadData()
                         self.previousVC.updatePlaylistUI()
+                        self.destroyActivityView()
                     }
                 }
             }
