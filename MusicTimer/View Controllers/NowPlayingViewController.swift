@@ -127,6 +127,9 @@ class NowPlayingViewController: UIViewController {
         setupMediaControls()
         setupQueueView()
         updateLastSong()
+        if systemMusicPlayer.indexOfNowPlayingItem < musicPlayer.musicQueue.count {
+            self.updateUI()
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updatePlayButton), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
     }
@@ -153,12 +156,12 @@ class NowPlayingViewController: UIViewController {
     
     @objc private func updateUI() {
         let currSong = systemMusicPlayer.nowPlayingItem
-        let nextSong = systemMusicPlayer.indexOfNowPlayingItem != musicPlayer.musicQueue.count ? musicPlayer.musicQueue[systemMusicPlayer.indexOfNowPlayingItem + 1] : musicPlayer.musicQueue[0]
+        let nextSong = systemMusicPlayer.indexOfNowPlayingItem >= musicPlayer.musicQueue.count - 1 ? musicPlayer.musicQueue[0] : musicPlayer.musicQueue[systemMusicPlayer.indexOfNowPlayingItem + 1]
         
         // Update All Text Elements
         songTitleLabel.text = "\(currSong?.title ?? "")"
         songArtistLabel.text = "\(currSong?.artist ?? "")"
-        songsRemainingLabel.text = "\(musicPlayer.musicQueue.count - systemMusicPlayer.indexOfNowPlayingItem) Songs Remaining"
+        songsRemainingLabel.text = (musicPlayer.musicQueue.count - systemMusicPlayer.indexOfNowPlayingItem) != 1 ? "\(musicPlayer.musicQueue.count - systemMusicPlayer.indexOfNowPlayingItem) Songs Remaining" : "Last Song"
         upNextView.songInfoLabel.text = "\(nextSong.name) - \(nextSong.artist)"
 
         

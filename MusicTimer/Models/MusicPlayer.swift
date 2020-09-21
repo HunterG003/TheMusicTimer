@@ -296,6 +296,7 @@ extension MusicPlayer {
                 print(i.name)
             }
             self.systemMusicController.setQueue(with: ids)
+            self.systemMusicController.shuffleMode = .off
             self.systemMusicController.prepareToPlay { (err) in
                 if let err = err {
                     fatalError("\(err)")
