@@ -46,7 +46,6 @@ class PlaylistSelectionViewController: UIViewController {
         view.backgroundColor = .systemBackground
         loadPlaylists()
         setupUserPlaylist()
-        createActivityView()
     }
     
     private func createActivityView() {
@@ -77,6 +76,7 @@ class PlaylistSelectionViewController: UIViewController {
     
     private func loadPlaylists() {
         if playlists.isEmpty {
+            createActivityView()
             musicPlayer.getUsersPlaylists { (retrieved) in
                 self.playlists = retrieved
                 self.musicPlayer.selectedPlaylist = 0
