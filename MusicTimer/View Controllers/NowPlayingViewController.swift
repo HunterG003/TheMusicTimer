@@ -115,7 +115,8 @@ class NowPlayingViewController: UIViewController {
     private let systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer
     private let playImage = UIImage(systemName: "play")
     private let pauseImage = UIImage(systemName: "pause")
-    private var upNextCachedImage : UIImage?
+    private var cachedImages = [UIImage]()
+    private var lastSongImage : UIImage!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,7 +126,7 @@ class NowPlayingViewController: UIViewController {
         setupSongInfo()
         setupMediaControls()
         setupQueueView()
-        updateUI()
+        updateLastSong()
         NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updatePlayButton), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
     }
@@ -151,51 +152,44 @@ class NowPlayingViewController: UIViewController {
     }
     
     @objc private func updateUI() {
+        let currSong = systemMusicPlayer.nowPlayingItem
+        let nextSong = systemMusicPlayer.indexOfNowPlayingItem != musicPlayer.musicQueue.count ? musicPlayer.musicQueue[systemMusicPlayer.indexOfNowPlayingItem + 1] : musicPlayer.musicQueue[0]
         
-        if upNextCachedImage != nil {
-            backgroundImageView.image = upNextCachedImage
-            backgroundImageView.contentMode = .scaleAspectFill
-            songImageView.updateImage(with: upNextCachedImage!)
-            self.animateUIChange(backgroundImage: upNextCachedImage!)
-        } else {
-            let tempImageView = UIImageView()
-            tempImageView.downloaded(from: musicPlayer.musicQueue[0].artworkUrl ?? "") {
-                DispatchQueue.main.async {
-                    self.animateUIChange(backgroundImage: tempImageView.image!)
-                    self.songImageView.updateImage(with: tempImageView.image!)
-                }
+        // Update All Text Elements
+        songTitleLabel.text = "\(currSong?.title ?? "")"
+        songArtistLabel.text = "\(currSong?.artist ?? "")"
+        songsRemainingLabel.text = "\(musicPlayer.musicQueue.count - systemMusicPlayer.indexOfNowPlayingItem) Songs Remaining"
+        upNextView.songInfoLabel.text = "\(nextSong.name) - \(nextSong.artist)"
+
+        
+        // Download Images And Update UI
+        let tempView = UIImageView()
+        tempView.downloaded(from: musicPlayer.musicQueue[systemMusicPlayer.indexOfNowPlayingItem].artworkUrl!, contentMode: .scaleAspectFill) {
+            DispatchQueue.main.async {
+                self.songImageView.updateImage(with: tempView.image!)
+                self.animateUIChange(backgroundImage: tempView.image!)
             }
         }
         
-        let currSong = systemMusicPlayer.nowPlayingItem
-        songTitleLabel.text = currSong?.title
-        songArtistLabel.text = currSong?.artist
-        songsRemainingLabel.text = "\(musicPlayer.musicQueue.count - systemMusicPlayer.indexOfNowPlayingItem) Songs Remaining"
-        
-        if systemMusicPlayer.indexOfNowPlayingItem < musicPlayer.musicQueue.count - 1 {
-            let index = systemMusicPlayer.indexOfNowPlayingItem + 1
-            let nextSong = musicPlayer.musicQueue[index]
-            upNextView.imageView.downloaded(from: nextSong.artworkUrl ?? "", completion: {
-                DispatchQueue.main.async {
-                    self.upNextCachedImage = self.upNextView.imageView.image
-                }
-            })
-            upNextView.songInfoLabel.text = "\(nextSong.name) - \(nextSong.artist)"
-        } else {
-            songsRemainingLabel.text = "Last Song"
-            let nextSong = musicPlayer.musicQueue[0]
-            upNextView.imageView.downloaded(from: nextSong.artworkUrl ?? "", completion: {
-                DispatchQueue.main.async {
-                    self.upNextCachedImage = self.upNextView.imageView.image
-                }
-            })
-            upNextView.songInfoLabel.text = "\(nextSong.name) - \(nextSong.artist)"
+        upNextView.imageView.downloaded(from: nextSong.artworkUrl!, contentMode: .scaleAspectFit) {
+            DispatchQueue.main.async {
+                self.cachedImages.append(self.upNextView.imageView.image!)
+            }
         }
+    }
+    
+    // Separated this function because it only needs to be called once
+    private func updateLastSong() {
+        let lastSong = musicPlayer.musicQueue.last
         
-        guard let lastSong = musicPlayer.musicQueue.last else { return }
+        if lastSongImage != nil { return }
         
-        lastSongView.imageView.downloaded(from: lastSong.artworkUrl ?? "", completion: {})
-        lastSongView.songInfoLabel.text = "\(lastSong.name) - \(lastSong.artist)"
+        lastSongView.songInfoLabel.text = "\(lastSong?.name ?? "") - \(lastSong?.artist ?? "")"
+        lastSongView.imageView.downloaded(from: (lastSong?.artworkUrl!)!, contentMode: .scaleAspectFit) {
+            DispatchQueue.main.async {
+                self.lastSongImage = self.lastSongView.imageView.image!
+            }
+        }
     }
     
     @objc private func updatePlayButton() {
