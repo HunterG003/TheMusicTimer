@@ -20,6 +20,8 @@
 		5A9E2C922434F39900C29103 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A9E2C912434F39900C29103 /* Assets.xcassets */; };
 		5A9E2C952434F39900C29103 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A9E2C932434F39900C29103 /* LaunchScreen.storyboard */; };
 		5AA556252518FCF700B76BF4 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA556242518FCF700B76BF4 /* ActivityViewController.swift */; };
+		5AB2AA06251A84C000E2A4AB /* NewMainScreenConceptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB2AA05251A84C000E2A4AB /* NewMainScreenConceptViewController.swift */; };
+		5AB2AA09251A860F00E2A4AB /* NewPlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB2AA08251A860F00E2A4AB /* NewPlaylistCell.swift */; };
 		5ACA980C24FEBD2E001933EF /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA980B24FEBD2E001933EF /* MainScreenViewController.swift */; };
 		5ACA980E24FEC68D001933EF /* PlaylistSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA980D24FEC68D001933EF /* PlaylistSelectionViewController.swift */; };
 		5ACA981324FEC973001933EF /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA981224FEC973001933EF /* PlaylistCell.swift */; };
@@ -45,6 +47,8 @@
 		5A9E2C942434F39900C29103 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A9E2C962434F39900C29103 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AA556242518FCF700B76BF4 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		5AB2AA05251A84C000E2A4AB /* NewMainScreenConceptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMainScreenConceptViewController.swift; sourceTree = "<group>"; };
+		5AB2AA08251A860F00E2A4AB /* NewPlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlaylistCell.swift; sourceTree = "<group>"; };
 		5ACA980B24FEBD2E001933EF /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		5ACA980D24FEC68D001933EF /* PlaylistSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistSelectionViewController.swift; sourceTree = "<group>"; };
 		5ACA981224FEC973001933EF /* PlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
@@ -118,6 +122,7 @@
 				5ACA980D24FEC68D001933EF /* PlaylistSelectionViewController.swift */,
 				5ACA9814250169D2001933EF /* NowPlayingViewController.swift */,
 				5AA556242518FCF700B76BF4 /* ActivityViewController.swift */,
+				5AB2AA05251A84C000E2A4AB /* NewMainScreenConceptViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -134,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				5ACA981224FEC973001933EF /* PlaylistCell.swift */,
+				5AB2AA08251A860F00E2A4AB /* NewPlaylistCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -243,6 +249,8 @@
 				5AA556252518FCF700B76BF4 /* ActivityViewController.swift in Sources */,
 				5A9E2C8B2434F39400C29103 /* SceneDelegate.swift in Sources */,
 				5A3410B3250A98D50037AF68 /* RoundedImageWithShadow.swift in Sources */,
+				5AB2AA09251A860F00E2A4AB /* NewPlaylistCell.swift in Sources */,
+				5AB2AA06251A84C000E2A4AB /* NewMainScreenConceptViewController.swift in Sources */,
 				5A7FA11E24450FDC00BE7DAA /* SongObject.swift in Sources */,
 				5ACA980C24FEBD2E001933EF /* MainScreenViewController.swift in Sources */,
 			);

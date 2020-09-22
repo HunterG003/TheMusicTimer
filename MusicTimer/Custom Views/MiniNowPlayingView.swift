@@ -11,6 +11,13 @@ import MediaPlayer
 
 class MiniNowPlayingView: UIView {
     
+    private let backgroundBlur : UIVisualEffectView = {
+        let blur = UIBlurEffect(style: .systemThinMaterialDark)
+        let view = UIVisualEffectView(effect: blur)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     let imageView : UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -73,19 +80,22 @@ class MiniNowPlayingView: UIView {
     }
     
     private func setupView() {
+        addSubview(backgroundBlur)
         addSubview(imageView)
         addSubview(label)
         addSubview(playButton)
         addSubview(forwardButton)
-        
-        backgroundColor = .secondarySystemBackground
-        backgroundColor = backgroundColor?.withAlphaComponent(0.35)
         
         let horizontalPadding : CGFloat = 20
         let verticalPadding : CGFloat = 5
         let itemSpacing : CGFloat = 10
         
         NSLayoutConstraint.activate([
+            backgroundBlur.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundBlur.topAnchor.constraint(equalTo: topAnchor),
+            backgroundBlur.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundBlur.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontalPadding),
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: verticalPadding),
             imageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: verticalPadding),
