@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import MediaPlayer
 
 class NewMainScreenConceptViewController: UIViewController {
     
     private let symbolConfig = UIImage.SymbolConfiguration(pointSize: 30)
+    private let activityView = ActivityViewController()
     
     private let backgroundImage : UIImageView = {
         let view = UIImageView()
@@ -70,6 +72,11 @@ class NewMainScreenConceptViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    lazy var musicPlayer = MusicPlayer()
+    let systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer
+    private var playlists = [Playlist]()
+    private var selectedCell = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +86,55 @@ class NewMainScreenConceptViewController: UIViewController {
         setupTimePicker()
         setupPlayButton()
         setupMiniPlayer()
+        musicPlayer.getAuth {
+            self.updateUI()
+        }
+        NotificationCenter.default.addObserver(self, selector: #selector(playbackStateChanged), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(miniViewTapped), name: .init(rawValue: "MiniViewTapped"), object: nil)
+        playbackStateChanged()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .init("MiniViewTapped"), object: nil)
+    }
+    
+    func updateUI() {
+        if playlists.isEmpty {
+            loadPlaylists(completion: {
+                DispatchQueue.main.async {
+                    self.playlistNameLabel.text = "\(self.playlists[self.selectedCell].name)"
+                    self.updateBackgroundWithAnimation()
+                }
+            })
+        } else {
+            playlistNameLabel.text = "\(playlists[selectedCell].name)"
+            updateBackgroundWithAnimation()
+        }
+    }
+    
+    private func updateBackgroundWithAnimation() {
+        UIView.transition(with: backgroundImage, duration: 1, options: .transitionCrossDissolve) {
+            self.backgroundImage.downloaded(from: self.playlists[self.selectedCell].artworkUrl, contentMode: .scaleAspectFill, completion: {})
+        } completion: { (_) in
+            
+        }
+
+    }
+    
+    private func loadPlaylists(completion: @escaping () -> Void) {
+        self.createActivityView()
+        musicPlayer.getUsersPlaylists { (retrieved) in
+            self.playlists = retrieved
+            self.musicPlayer.selectedPlaylist = 0
+            if self.musicPlayer.tempCount == retrieved.count {
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.destroyActivityView()
+                }
+                completion()
+            }
+        }
     }
     
     private func setupBackground() {
@@ -159,34 +215,57 @@ class NewMainScreenConceptViewController: UIViewController {
             miniPlayer.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/9)
         ])
         
-//        if musicPlayer.isPlaying {
-//            miniPlayer.isHidden = false
-//        } else {
-//            miniPlayer.isHidden = true
-//        }
+        if musicPlayer.isPlaying {
+            miniPlayer.isHidden = false
+        } else {
+            miniPlayer.isHidden = true
+        }
+    }
+    
+    private func createActivityView() {
+        view.addSubview(activityView.view)
+    }
+    
+    private func destroyActivityView() {
+        activityView.view.removeFromSuperview()
     }
     
     @objc func playButtonPressed() {
-        print("play")
+        let timeToPlay = timePicker.countDownDuration
+        musicPlayer.play(playlist: musicPlayer.userPlaylists[musicPlayer.selectedPlaylist], timeToPlay: Int(timeToPlay), completion: {
+            DispatchQueue.main.async {
+                let vc = NowPlayingViewController()
+                vc.musicPlayer = self.musicPlayer
+                self.present(vc, animated: true)
+            }
+        })
     }
     
-    @objc func miniPlayerPlayPressed() {
-        print("play")
+    @objc func playbackStateChanged() {
+        if musicPlayer.isPlaying {
+            miniPlayer.isHidden = false
+        } else {
+            miniPlayer.isHidden = true
+        }
     }
     
-    @objc func miniPlayerNextPressed() {
-        print("next")
+    @objc func miniViewTapped() {
+        let vc = NowPlayingViewController()
+        vc.musicPlayer = self.musicPlayer
+        self.present(vc, animated: true)
     }
 
 }
 
 extension NewMainScreenConceptViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return playlists.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewPlaylistCell", for: indexPath) as! NewPlaylistCell
+        
+        cell.imageView.downloaded(from: playlists[indexPath.row].artworkUrl, completion: {})
         
         return cell
     }
@@ -199,18 +278,20 @@ extension NewMainScreenConceptViewController: UICollectionViewDelegate, UICollec
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
-            self.collectionView.scrollToNearestVisibleCollectionViewCell()
+            selectedCell = self.collectionView.scrollToNearestVisibleCollectionViewCell()
+            self.updateUI()
         }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.collectionView.scrollToNearestVisibleCollectionViewCell()
+        selectedCell = self.collectionView.scrollToNearestVisibleCollectionViewCell()
+        self.updateUI()
     }
 
 }
 
 extension UICollectionView {
-    func scrollToNearestVisibleCollectionViewCell() {
+    func scrollToNearestVisibleCollectionViewCell() -> Int {
         self.decelerationRate = UIScrollView.DecelerationRate.fast
         let visibleCenterPositionOfScrollView = Float(self.contentOffset.x + (self.bounds.size.width / 2))
         var closestCellIndex = -1
@@ -229,6 +310,8 @@ extension UICollectionView {
         }
         if closestCellIndex != -1 {
             self.scrollToItem(at: IndexPath(row: closestCellIndex, section: 0), at: .left, animated: true)
+            return closestCellIndex
         }
+        return closestCellIndex
     }
 }
