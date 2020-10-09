@@ -57,13 +57,13 @@ class NewMainScreenConceptViewController: UIViewController {
         return view
     }()
     
-    private let playButton : UIButton = {
-        let btn = UIButton()
+    private let playButton : ButtonWithBlurredBackground = {
+        let btn = ButtonWithBlurredBackground()
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.addTarget(self, action: #selector(playButtonPressed), for: .touchUpInside)
-        btn.backgroundColor = .systemBlue
+        btn.addTarget(self, action: #selector(playButtonPressed), for: .allTouchEvents)
+        btn.backgroundColor = .clear
         btn.setTitle("PLAY", for: .normal)
-        btn.titleLabel!.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        btn.label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
         return btn
     }()
     
@@ -232,7 +232,7 @@ class NewMainScreenConceptViewController: UIViewController {
     
     @objc func playButtonPressed() {
         let timeToPlay = timePicker.countDownDuration
-        musicPlayer.play(playlist: musicPlayer.userPlaylists[musicPlayer.selectedPlaylist], timeToPlay: Int(timeToPlay), completion: {
+        musicPlayer.play(playlist: musicPlayer.userPlaylists[selectedCell], timeToPlay: Int(timeToPlay), completion: {
             DispatchQueue.main.async {
                 let vc = NowPlayingViewController()
                 vc.musicPlayer = self.musicPlayer

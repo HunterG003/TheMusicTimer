@@ -10,6 +10,7 @@
 		5A3410AF2507EE180037AF68 /* MiniNowPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410AE2507EE180037AF68 /* MiniNowPlayingView.swift */; };
 		5A3410B3250A98D50037AF68 /* RoundedImageWithShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410B2250A98D50037AF68 /* RoundedImageWithShadow.swift */; };
 		5A3410B5250A9EFC0037AF68 /* UIImage Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410B4250A9EFC0037AF68 /* UIImage Extension.swift */; };
+		5A6A817B251BD2A20075225C /* ButtonWithBlurredBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6A817A251BD2A20075225C /* ButtonWithBlurredBackground.swift */; };
 		5A7FA1142444FC1C00BE7DAA /* CommonMusicObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FA1132444FC1C00BE7DAA /* CommonMusicObjects.swift */; };
 		5A7FA1162444FF8200BE7DAA /* UserPlaylistDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FA1152444FF8200BE7DAA /* UserPlaylistDecoder.swift */; };
 		5A7FA11A24450A7C00BE7DAA /* PlaylistObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FA11924450A7C00BE7DAA /* PlaylistObject.swift */; };
@@ -35,6 +36,7 @@
 		5A3410AE2507EE180037AF68 /* MiniNowPlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniNowPlayingView.swift; sourceTree = "<group>"; };
 		5A3410B2250A98D50037AF68 /* RoundedImageWithShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageWithShadow.swift; sourceTree = "<group>"; };
 		5A3410B4250A9EFC0037AF68 /* UIImage Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage Extension.swift"; sourceTree = "<group>"; };
+		5A6A817A251BD2A20075225C /* ButtonWithBlurredBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithBlurredBackground.swift; sourceTree = "<group>"; };
 		5A7FA1132444FC1C00BE7DAA /* CommonMusicObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMusicObjects.swift; sourceTree = "<group>"; };
 		5A7FA1152444FF8200BE7DAA /* UserPlaylistDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPlaylistDecoder.swift; sourceTree = "<group>"; };
 		5A7FA11924450A7C00BE7DAA /* PlaylistObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistObject.swift; sourceTree = "<group>"; };
@@ -104,7 +106,7 @@
 				5A9E2C8A2434F39400C29103 /* SceneDelegate.swift */,
 				5A9E2C9E2435248900C29103 /* View Controllers */,
 				5ACA98192502B98A001933EF /* Extensions */,
-				5A9E2C9F2435273B00C29103 /* Models */,
+				5A9E2C9F2435273B00C29103 /* Music Player */,
 				5ACA981625017550001933EF /* Custom Views */,
 				5ACA981124FEC927001933EF /* Custom Cells */,
 				5A7FA1122444FBF600BE7DAA /* Objects */,
@@ -127,12 +129,12 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
-		5A9E2C9F2435273B00C29103 /* Models */ = {
+		5A9E2C9F2435273B00C29103 /* Music Player */ = {
 			isa = PBXGroup;
 			children = (
 				5AE9BADD243D22EE00FEC215 /* MusicPlayer.swift */,
 			);
-			path = Models;
+			path = "Music Player";
 			sourceTree = "<group>";
 		};
 		5ACA981124FEC927001933EF /* Custom Cells */ = {
@@ -150,6 +152,7 @@
 				5ACA981725017571001933EF /* SongPreviewView.swift */,
 				5A3410AE2507EE180037AF68 /* MiniNowPlayingView.swift */,
 				5A3410B2250A98D50037AF68 /* RoundedImageWithShadow.swift */,
+				5A6A817A251BD2A20075225C /* ButtonWithBlurredBackground.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				5A3410B3250A98D50037AF68 /* RoundedImageWithShadow.swift in Sources */,
 				5AB2AA09251A860F00E2A4AB /* NewPlaylistCell.swift in Sources */,
 				5AB2AA06251A84C000E2A4AB /* NewMainScreenConceptViewController.swift in Sources */,
+				5A6A817B251BD2A20075225C /* ButtonWithBlurredBackground.swift in Sources */,
 				5A7FA11E24450FDC00BE7DAA /* SongObject.swift in Sources */,
 				5ACA980C24FEBD2E001933EF /* MainScreenViewController.swift in Sources */,
 			);

@@ -12,7 +12,7 @@ import MediaPlayer
 class MiniNowPlayingView: UIView {
     
     private let backgroundBlur : UIVisualEffectView = {
-        let blur = UIBlurEffect(style: .systemThinMaterialDark)
+        let blur = UIBlurEffect(style: .systemUltraThinMaterialDark)
         let view = UIVisualEffectView(effect: blur)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
