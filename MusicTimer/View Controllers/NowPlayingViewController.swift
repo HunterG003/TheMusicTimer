@@ -22,7 +22,7 @@ class NowPlayingViewController: UIViewController {
     private let blurEffectView : UIVisualEffectView = {
         let view = UIVisualEffectView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        let blur = UIBlurEffect(style: .systemMaterial)
+        let blur = UIBlurEffect(style: .dark)
         view.effect = blur
         return view
     }()
@@ -37,7 +37,7 @@ class NowPlayingViewController: UIViewController {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.text = "Stoney"
-        lbl.textColor = .label
+        lbl.textColor = .white
         lbl.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
         lbl.textAlignment = .center
         return lbl
@@ -47,7 +47,7 @@ class NowPlayingViewController: UIViewController {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.text = "Post Malone"
-        lbl.textColor = .label
+        lbl.textColor = .white
         lbl.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         lbl.textAlignment = .center
         return lbl
@@ -93,7 +93,7 @@ class NowPlayingViewController: UIViewController {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.text = "15 Songs Remaining"
-        lbl.textColor = .label
+        lbl.textColor = .white
         lbl.font = UIFont.systemFont(ofSize: 25)
         return lbl
     }()
@@ -137,12 +137,6 @@ class NowPlayingViewController: UIViewController {
     deinit {
         NotificationCenter.default.removeObserver(self, name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
         NotificationCenter.default.removeObserver(self, name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        backwardButton.tintColor = .label
-        playButton.tintColor = .label
-        forwardButton.tintColor = .label
     }
     
     private func animateUIChange(backgroundImage: UIImage) {
@@ -241,7 +235,9 @@ class NowPlayingViewController: UIViewController {
             songTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
             
             songArtistLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            songArtistLabel.topAnchor.constraint(equalTo: songTitleLabel.bottomAnchor, constant: 5)
+            songArtistLabel.topAnchor.constraint(equalTo: songTitleLabel.bottomAnchor, constant: 5),
+            songArtistLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            songArtistLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
         ])
     }
     
@@ -291,7 +287,7 @@ class NowPlayingViewController: UIViewController {
             playButton.image = playImage
         }
         
-        volumeSlider.tintColor = .label
+        volumeSlider.tintColor = .white
     }
     
     private func setupQueueView() {

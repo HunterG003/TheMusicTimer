@@ -11,7 +11,7 @@ import UIKit
 class ButtonWithBlurredBackground: UIButton {
     
     private let blurView : UIVisualEffectView = {
-        let blur = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        let blur = UIBlurEffect(style: .systemChromeMaterialDark)
         let view = UIVisualEffectView(effect: blur)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -25,6 +25,7 @@ class ButtonWithBlurredBackground: UIButton {
         addSubview(label)
         
         label.textAlignment = .center
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

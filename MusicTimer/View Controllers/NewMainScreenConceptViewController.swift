@@ -54,6 +54,7 @@ class NewMainScreenConceptViewController: UIViewController {
         let view = UIDatePicker()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.datePickerMode = .countDownTimer
+        view.setValue(UIColor.white, forKey: "textColor")
         return view
     }()
     

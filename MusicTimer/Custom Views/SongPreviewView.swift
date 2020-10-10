@@ -26,7 +26,7 @@ class SongPreviewView: UIView {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.text = "Up Next"
-        lbl.textColor = .label
+        lbl.textColor = .white
         lbl.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         return lbl
     }()
@@ -42,7 +42,7 @@ class SongPreviewView: UIView {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.text = "Circles - Post Malone"
-        lbl.textColor = .label
+        lbl.textColor = .white
         lbl.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         return lbl
     }()
@@ -72,9 +72,4 @@ class SongPreviewView: UIView {
             songInfoLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        separator.backgroundColor = .label
-    }
-
 }

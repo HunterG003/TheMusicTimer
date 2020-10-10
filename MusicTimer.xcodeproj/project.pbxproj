@@ -24,7 +24,6 @@
 		5AA556252518FCF700B76BF4 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA556242518FCF700B76BF4 /* ActivityViewController.swift */; };
 		5AB2AA06251A84C000E2A4AB /* NewMainScreenConceptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB2AA05251A84C000E2A4AB /* NewMainScreenConceptViewController.swift */; };
 		5AB2AA09251A860F00E2A4AB /* NewPlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB2AA08251A860F00E2A4AB /* NewPlaylistCell.swift */; };
-		5ACA980E24FEC68D001933EF /* PlaylistSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA980D24FEC68D001933EF /* PlaylistSelectionViewController.swift */; };
 		5ACA981324FEC973001933EF /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA981224FEC973001933EF /* PlaylistCell.swift */; };
 		5ACA9815250169D2001933EF /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA9814250169D2001933EF /* NowPlayingViewController.swift */; };
 		5ACA981825017571001933EF /* SongPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA981725017571001933EF /* SongPreviewView.swift */; };
@@ -64,7 +63,6 @@
 		5AA556242518FCF700B76BF4 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		5AB2AA05251A84C000E2A4AB /* NewMainScreenConceptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMainScreenConceptViewController.swift; sourceTree = "<group>"; };
 		5AB2AA08251A860F00E2A4AB /* NewPlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlaylistCell.swift; sourceTree = "<group>"; };
-		5ACA980D24FEC68D001933EF /* PlaylistSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistSelectionViewController.swift; sourceTree = "<group>"; };
 		5ACA981224FEC973001933EF /* PlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
 		5ACA9814250169D2001933EF /* NowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 		5ACA981725017571001933EF /* SongPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongPreviewView.swift; sourceTree = "<group>"; };
@@ -150,7 +148,6 @@
 		5A9E2C9E2435248900C29103 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5ACA980D24FEC68D001933EF /* PlaylistSelectionViewController.swift */,
 				5ACA9814250169D2001933EF /* NowPlayingViewController.swift */,
 				5AA556242518FCF700B76BF4 /* ActivityViewController.swift */,
 				5AB2AA05251A84C000E2A4AB /* NewMainScreenConceptViewController.swift */,
@@ -309,7 +306,6 @@
 				5A7FA11A24450A7C00BE7DAA /* PlaylistObject.swift in Sources */,
 				5AE9BADE243D22EE00FEC215 /* MusicPlayer.swift in Sources */,
 				5ACA981825017571001933EF /* SongPreviewView.swift in Sources */,
-				5ACA980E24FEC68D001933EF /* PlaylistSelectionViewController.swift in Sources */,
 				5A3410B5250A9EFC0037AF68 /* UIImage Extension.swift in Sources */,
 				5ACA9815250169D2001933EF /* NowPlayingViewController.swift in Sources */,
 				5A7FA1162444FF8200BE7DAA /* UserPlaylistDecoder.swift in Sources */,
