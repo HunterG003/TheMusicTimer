@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A2F748825312CE70086BFCF /* MusicTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2F748725312CE70086BFCF /* MusicTimerTests.swift */; };
 		5A3410AF2507EE180037AF68 /* MiniNowPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410AE2507EE180037AF68 /* MiniNowPlayingView.swift */; };
 		5A3410B3250A98D50037AF68 /* RoundedImageWithShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410B2250A98D50037AF68 /* RoundedImageWithShadow.swift */; };
 		5A3410B5250A9EFC0037AF68 /* UIImage Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410B4250A9EFC0037AF68 /* UIImage Extension.swift */; };
@@ -32,7 +33,20 @@
 		5AE9BADE243D22EE00FEC215 /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE9BADD243D22EE00FEC215 /* MusicPlayer.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		5A2F748A25312CE70086BFCF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A9E2C7D2434F39400C29103 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A9E2C842434F39400C29103;
+			remoteInfo = MusicTimer;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		5A2F748525312CE70086BFCF /* MusicTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A2F748725312CE70086BFCF /* MusicTimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTimerTests.swift; sourceTree = "<group>"; };
+		5A2F748925312CE70086BFCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A3410AE2507EE180037AF68 /* MiniNowPlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniNowPlayingView.swift; sourceTree = "<group>"; };
 		5A3410B2250A98D50037AF68 /* RoundedImageWithShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageWithShadow.swift; sourceTree = "<group>"; };
 		5A3410B4250A9EFC0037AF68 /* UIImage Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage Extension.swift"; sourceTree = "<group>"; };
@@ -61,6 +75,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5A2F748225312CE70086BFCF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5A9E2C822434F39400C29103 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -71,6 +92,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A2F748625312CE70086BFCF /* MusicTimerTests */ = {
+			isa = PBXGroup;
+			children = (
+				5A2F748725312CE70086BFCF /* MusicTimerTests.swift */,
+				5A2F748925312CE70086BFCF /* Info.plist */,
+			);
+			path = MusicTimerTests;
+			sourceTree = "<group>";
+		};
 		5A7FA1122444FBF600BE7DAA /* Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				5A9E2C872434F39400C29103 /* MusicTimer */,
+				5A2F748625312CE70086BFCF /* MusicTimerTests */,
 				5A9E2C862434F39400C29103 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -95,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				5A9E2C852434F39400C29103 /* MusicTimer.app */,
+				5A2F748525312CE70086BFCF /* MusicTimerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -169,6 +201,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5A2F748425312CE70086BFCF /* MusicTimerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A2F748E25312CE70086BFCF /* Build configuration list for PBXNativeTarget "MusicTimerTests" */;
+			buildPhases = (
+				5A2F748125312CE70086BFCF /* Sources */,
+				5A2F748225312CE70086BFCF /* Frameworks */,
+				5A2F748325312CE70086BFCF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5A2F748B25312CE70086BFCF /* PBXTargetDependency */,
+			);
+			name = MusicTimerTests;
+			productName = MusicTimerTests;
+			productReference = 5A2F748525312CE70086BFCF /* MusicTimerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		5A9E2C842434F39400C29103 /* MusicTimer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5A9E2C992434F39900C29103 /* Build configuration list for PBXNativeTarget "MusicTimer" */;
@@ -192,10 +242,14 @@
 		5A9E2C7D2434F39400C29103 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1140;
+				LastSwiftUpdateCheck = 1200;
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Hunter Gilliam";
 				TargetAttributes = {
+					5A2F748425312CE70086BFCF = {
+						CreatedOnToolsVersion = 12.0.1;
+						TestTargetID = 5A9E2C842434F39400C29103;
+					};
 					5A9E2C842434F39400C29103 = {
 						CreatedOnToolsVersion = 11.4;
 					};
@@ -215,11 +269,19 @@
 			projectRoot = "";
 			targets = (
 				5A9E2C842434F39400C29103 /* MusicTimer */,
+				5A2F748425312CE70086BFCF /* MusicTimerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5A2F748325312CE70086BFCF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5A9E2C832434F39400C29103 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,6 +294,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5A2F748125312CE70086BFCF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A2F748825312CE70086BFCF /* MusicTimerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5A9E2C812434F39400C29103 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -262,6 +332,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		5A2F748B25312CE70086BFCF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5A9E2C842434F39400C29103 /* MusicTimer */;
+			targetProxy = 5A2F748A25312CE70086BFCF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		5A9E2C932434F39900C29103 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -274,6 +352,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5A2F748C25312CE70086BFCF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E7Y454QTN5;
+				INFOPLIST_FILE = MusicTimerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.huntergilliam.MusicTimerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MusicTimer.app/MusicTimer";
+			};
+			name = Debug;
+		};
+		5A2F748D25312CE70086BFCF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E7Y454QTN5;
+				INFOPLIST_FILE = MusicTimerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.huntergilliam.MusicTimerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MusicTimer.app/MusicTimer";
+			};
+			name = Release;
+		};
 		5A9E2C972434F39900C29103 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -429,6 +547,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5A2F748E25312CE70086BFCF /* Build configuration list for PBXNativeTarget "MusicTimerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A2F748C25312CE70086BFCF /* Debug */,
+				5A2F748D25312CE70086BFCF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5A9E2C802434F39400C29103 /* Build configuration list for PBXProject "MusicTimer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
