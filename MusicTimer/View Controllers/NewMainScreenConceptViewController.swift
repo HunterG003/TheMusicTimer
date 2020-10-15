@@ -8,8 +8,9 @@
 
 import UIKit
 import MediaPlayer
+import StoreKit
 
-class NewMainScreenConceptViewController: UIViewController {
+class NewMainScreenConceptViewController: UIViewController, SKCloudServiceSetupViewControllerDelegate {
     
     private let symbolConfig = UIImage.SymbolConfiguration(pointSize: 30)
     private let activityView = ActivityViewController()
@@ -87,8 +88,12 @@ class NewMainScreenConceptViewController: UIViewController {
         setupTimePicker()
         setupPlayButton()
         setupMiniPlayer()
-        musicPlayer.getAuth {
-            self.updateUI()
+        musicPlayer.getAuth { result in
+            if result {
+                self.updateUI()
+            } else {
+                self.showAppleMusicSignUp()
+            }
         }
         NotificationCenter.default.addObserver(self, selector: #selector(playbackStateChanged), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(miniViewTapped), name: .init(rawValue: "MiniViewTapped"), object: nil)
@@ -98,6 +103,30 @@ class NewMainScreenConceptViewController: UIViewController {
     deinit {
         NotificationCenter.default.removeObserver(self, name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
         NotificationCenter.default.removeObserver(self, name: .init("MiniViewTapped"), object: nil)
+    }
+    
+    fileprivate func showAppleMusicSignUp() {
+        guard SKCloudServiceController.authorizationStatus() == .authorized else { return }
+        
+        let controller = SKCloudServiceController()
+        controller.requestCapabilities { (capability, error) in
+            guard error == nil else { return }
+            
+            if capability.contains(.musicCatalogSubscriptionEligible) && !capability.contains(.musicCatalogPlayback) {
+                let options : [SKCloudServiceSetupOptionsKey: Any] = [.action: SKCloudServiceSetupAction.subscribe, .messageIdentifier: SKCloudServiceSetupMessageIdentifier.playMusic]
+                let newController = SKCloudServiceSetupViewController()
+                newController.delegate = self
+                
+                newController.load(options: options) { [weak self] (result, error) in
+                    guard error == nil else { return }
+                    
+                    if result {
+                        self?.present(newController, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
+
     }
     
     func updateUI() {

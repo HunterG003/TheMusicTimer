@@ -15,6 +15,7 @@ class MusicPlayer {
     fileprivate let controller = SKCloudServiceController()
     fileprivate let systemMusicController = MPMusicPlayerController.systemMusicPlayer
     fileprivate let appMusicController = MPMusicPlayerController.applicationMusicPlayer
+    fileprivate let serviceController = SKCloudServiceController()
     fileprivate var userToken = ""
     fileprivate var userStorefront = ""
     fileprivate var hasSubsetBeenFound = false
@@ -35,14 +36,22 @@ class MusicPlayer {
 
 // MARK: Setup Functions
 extension MusicPlayer {
-    func getAuth(completion: @escaping () -> Void) {
+    func getAuth(completion: @escaping (Bool) -> Void) {
         SKCloudServiceController.requestAuthorization { (auth) in
             switch auth{
             case .authorized:
                 self.getUserToken(completion: {
-                    completion()
+                    completion(true)
                 })
                 self.getStoreFront()
+            case .denied, .notDetermined, .restricted:
+                self.controller.requestCapabilities { (capability, err) in
+                    if let err = err {
+                        print("Error: \(err)")
+                        return
+                    }
+                    completion(false)
+                }
             default:
                 print("idk")
             }
