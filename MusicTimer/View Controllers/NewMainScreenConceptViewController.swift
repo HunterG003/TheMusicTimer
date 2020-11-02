@@ -264,6 +264,7 @@ class NewMainScreenConceptViewController: UIViewController, SKCloudServiceSetupV
     
     @objc func playButtonPressed() {
         let timeToPlay = timePicker.countDownDuration
+        self.createActivityView()
         musicPlayer.play(playlist: musicPlayer.userPlaylists[selectedCell], timeToPlay: Int(timeToPlay), completion: { bool in
             if bool {
                 DispatchQueue.main.async {
@@ -271,6 +272,9 @@ class NewMainScreenConceptViewController: UIViewController, SKCloudServiceSetupV
                     vc.musicPlayer = self.musicPlayer
                     self.present(vc, animated: true)
                 }
+            }
+            DispatchQueue.main.async {
+                self.destroyActivityView()
             }
         })
     }
