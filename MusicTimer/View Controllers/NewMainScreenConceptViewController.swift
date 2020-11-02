@@ -97,12 +97,14 @@ class NewMainScreenConceptViewController: UIViewController, SKCloudServiceSetupV
         }
         NotificationCenter.default.addObserver(self, selector: #selector(playbackStateChanged), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(miniViewTapped), name: .init(rawValue: "MiniViewTapped"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(createAndShowAlert(_:)), name: .noSongsFound, object: nil)
         playbackStateChanged()
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
         NotificationCenter.default.removeObserver(self, name: .init("MiniViewTapped"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: .noSongsFound, object: nil)
     }
     
     fileprivate func showAppleMusicSignUp() {
@@ -262,11 +264,13 @@ class NewMainScreenConceptViewController: UIViewController, SKCloudServiceSetupV
     
     @objc func playButtonPressed() {
         let timeToPlay = timePicker.countDownDuration
-        musicPlayer.play(playlist: musicPlayer.userPlaylists[selectedCell], timeToPlay: Int(timeToPlay), completion: {
-            DispatchQueue.main.async {
-                let vc = NowPlayingViewController()
-                vc.musicPlayer = self.musicPlayer
-                self.present(vc, animated: true)
+        musicPlayer.play(playlist: musicPlayer.userPlaylists[selectedCell], timeToPlay: Int(timeToPlay), completion: { bool in
+            if bool {
+                DispatchQueue.main.async {
+                    let vc = NowPlayingViewController()
+                    vc.musicPlayer = self.musicPlayer
+                    self.present(vc, animated: true)
+                }
             }
         })
     }
@@ -283,6 +287,16 @@ class NewMainScreenConceptViewController: UIViewController, SKCloudServiceSetupV
         let vc = NowPlayingViewController()
         vc.musicPlayer = self.musicPlayer
         self.present(vc, animated: true)
+    }
+    
+    @objc func createAndShowAlert(_ alert : Notification.Name) {        
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error Finding Songs", message: "MusicTimer could not find any set of songs to equal the time you requested to be played. Please try again with either a different playlist or change to amount of time requested.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (_) in
+                
+            }))
+            self.present(alert, animated: true)
+        }
     }
 
 }

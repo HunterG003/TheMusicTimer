@@ -226,14 +226,14 @@ extension MusicPlayer {
     
 }
 
-// MARK: MT Specific Functions
+// MARK: MT Algorithm
 extension MusicPlayer {
     func findSongSubset(songs : [Song], numberOfSongs : Int, timeToFind : Int) -> [Song] {
         
         var dp : [[Bool?]] = Array(repeating: Array(repeating: nil, count: timeToFind + 1), count: numberOfSongs)
         
         if numberOfSongs == 0 || timeToFind < 0 {
-//            NotificationCenter.default.post(name: NSNotification.Name.noSongsFound, object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name.noSongsFound, object: nil)
             return []
         }
         
@@ -253,7 +253,7 @@ extension MusicPlayer {
         
         if dp[numberOfSongs-1][timeToFind] == false {
             print("There are no subsets with sum", timeToFind)
-//            NotificationCenter.default.post(name: NSNotification.Name.noSongsFound, object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name.noSongsFound, object: nil)
             return []
         }
         
@@ -296,9 +296,13 @@ extension MusicPlayer {
 
 // MARK: The Infamous Play Function
 extension MusicPlayer {
-    func play(playlist: Playlist, timeToPlay: Int, completion: @escaping () -> Void) {
+    func play(playlist: Playlist, timeToPlay: Int, completion: @escaping (Bool) -> Void) {
         getSongsFromPlaylist(from: playlist.id) { songs in
             self.musicQueue = self.findSongSubset(songs: songs.shuffled(), numberOfSongs: songs.count, timeToFind: timeToPlay)
+            if self.musicQueue.isEmpty {
+                completion(false)
+                return
+            }
             var ids = [String]()
             self.musicQueue.forEach { (i) in
                 ids.append(i.id)
@@ -313,7 +317,7 @@ extension MusicPlayer {
                 self.systemMusicController.play()
                 self.isPlaying = true
             }
-            completion()
+            completion(true)
         }
     }
 }

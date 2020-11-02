@@ -24,6 +24,7 @@
 		5AA556252518FCF700B76BF4 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA556242518FCF700B76BF4 /* ActivityViewController.swift */; };
 		5AB2AA06251A84C000E2A4AB /* NewMainScreenConceptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB2AA05251A84C000E2A4AB /* NewMainScreenConceptViewController.swift */; };
 		5AB2AA09251A860F00E2A4AB /* NewPlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB2AA08251A860F00E2A4AB /* NewPlaylistCell.swift */; };
+		5AC544032550A68A00404E1E /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC544022550A68A00404E1E /* NotificationNames.swift */; };
 		5ACA981324FEC973001933EF /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA981224FEC973001933EF /* PlaylistCell.swift */; };
 		5ACA9815250169D2001933EF /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA9814250169D2001933EF /* NowPlayingViewController.swift */; };
 		5ACA981825017571001933EF /* SongPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA981725017571001933EF /* SongPreviewView.swift */; };
@@ -63,6 +64,7 @@
 		5AA556242518FCF700B76BF4 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		5AB2AA05251A84C000E2A4AB /* NewMainScreenConceptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMainScreenConceptViewController.swift; sourceTree = "<group>"; };
 		5AB2AA08251A860F00E2A4AB /* NewPlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlaylistCell.swift; sourceTree = "<group>"; };
+		5AC544022550A68A00404E1E /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		5ACA981224FEC973001933EF /* PlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
 		5ACA9814250169D2001933EF /* NowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 		5ACA981725017571001933EF /* SongPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongPreviewView.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 			children = (
 				5ACA981A2502B999001933EF /* ImageView Extension.swift */,
 				5A3410B4250A9EFC0037AF68 /* UIImage Extension.swift */,
+				5AC544022550A68A00404E1E /* NotificationNames.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				5A3410B3250A98D50037AF68 /* RoundedImageWithShadow.swift in Sources */,
 				5AB2AA09251A860F00E2A4AB /* NewPlaylistCell.swift in Sources */,
 				5AB2AA06251A84C000E2A4AB /* NewMainScreenConceptViewController.swift in Sources */,
+				5AC544032550A68A00404E1E /* NotificationNames.swift in Sources */,
 				5A6A817B251BD2A20075225C /* ButtonWithBlurredBackground.swift in Sources */,
 				5A7FA11E24450FDC00BE7DAA /* SongObject.swift in Sources */,
 			);
@@ -504,6 +508,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E7Y454QTN5;
 				INFOPLIST_FILE = MusicTimer/Info.plist;
@@ -513,6 +518,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.huntergilliam.MusicTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -522,6 +528,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E7Y454QTN5;
 				INFOPLIST_FILE = MusicTimer/Info.plist;
@@ -531,6 +538,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.huntergilliam.MusicTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
