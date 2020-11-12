@@ -14,7 +14,7 @@ class NewPlaylistCell: UICollectionViewCell {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
-        view.image = UIImage(named: "artwork")
+        view.image = UIImage(named: "placeholderImage")
         return view
     }()
     

@@ -44,7 +44,7 @@ class NewMainScreenConceptViewController: UIViewController, SKCloudServiceSetupV
     private let playlistNameLabel : UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.text = "Straight Vibes"
+        lbl.text = ""
         lbl.textAlignment = .center
         lbl.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
         lbl.textColor = .white
