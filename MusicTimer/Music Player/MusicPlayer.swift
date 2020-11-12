@@ -8,7 +8,6 @@
 
 import MediaPlayer
 import StoreKit
-import SwiftUI
 
 class MusicPlayer {
     fileprivate let devToken = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlhEOFY3SExVR1EifQ.eyJpc3MiOiJFN1k0NTRRVE41IiwiaWF0IjoxNTk4Mjg2MjE1LCJleHAiOjE2MTM4NDE4MTV9.1-jRU6Zf2N5H-LlpAXxqjIdHOugU4zhMlR9HEfnVXKc73Z5KO1aKOxlMXasYROzQSmECu-1ygtZrSKJ5AMkbaA" // Need to move this to a web server
@@ -320,7 +319,7 @@ extension MusicPlayer {
             }
             completion(true)
             let duration = timeToPlay / 60
-            let lastPlaylist = LastPlaylist(image: Image("artwork"), name: playlist.name, duration: "\(duration) Minutes")
+            let lastPlaylist = LastPlaylist(name: playlist.name, duration: "\(duration) Minutes")
             if let groupUserDefaults = UserDefaults(suiteName: "group.huntergilliam.musictimer.contents") {
                 groupUserDefaults.set(lastPlaylist.name, forKey: "lastPlaylistName")
                 groupUserDefaults.set(lastPlaylist.duration, forKey: "lastPlaylistDuration")

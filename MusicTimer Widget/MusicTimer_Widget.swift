@@ -11,12 +11,12 @@ import SwiftUI
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> Entry {
-        let playlist = LastPlaylist(image: Image("artwork"), name: "Vibes", duration: "30 Minutes")
+        let playlist = LastPlaylist(name: "Vibes", duration: "30 Minutes")
         return Entry(date: Date(), lastPlaylist: playlist)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (Entry) -> ()) {
-        let playlist = LastPlaylist(image: Image("artwork"), name: "Vibes", duration: "30 Minutes")
+        let playlist = LastPlaylist(name: "Vibes", duration: "30 Minutes")
         let entry = Entry(date: Date(), lastPlaylist: playlist)
         completion(entry)
     }
@@ -28,7 +28,7 @@ struct Provider: TimelineProvider {
         if let groupUserDefaults = UserDefaults(suiteName: "group.huntergilliam.musictimer.contents") {
             let duration = groupUserDefaults.string(forKey: "lastPlaylistDuration") ?? "Unknown"
             let name = groupUserDefaults.string(forKey: "lastPlaylistName") ?? "Unknown"
-            let lastPlaylist = LastPlaylist(image: Image("artwork"), name: name, duration: duration)
+            let lastPlaylist = LastPlaylist(name: name, duration: duration)
             let entry = Entry(date: Date().advanced(by: 1000), lastPlaylist: lastPlaylist)
             entries.append(entry)
         }
@@ -51,11 +51,11 @@ struct MusicTimer_WidgetEntryView : View {
             Color.pink.ignoresSafeArea()
             VStack {
                 Spacer()
-                entry.lastPlaylist.image
-                    .resizable()
-                    .scaledToFit()
-                    .cornerRadius(10.0)
-                    .shadow(radius: 10)
+//                entry.lastPlaylist.image
+//                    .resizable()
+//                    .scaledToFit()
+//                    .cornerRadius(10.0)
+//                    .shadow(radius: 10)
                 Text(entry.lastPlaylist.name)
                     .foregroundColor(.white)
                     .lineLimit(1)
@@ -84,7 +84,7 @@ struct MusicTimer_Widget: Widget {
 
 struct MusicTimer_Widget_Previews: PreviewProvider {
     static var previews: some View {
-        let playlist = LastPlaylist(image: Image("artwork"), name: "Vibes That have a long name :)", duration: "30 Minutes")
+        let playlist = LastPlaylist(name: "Vibes That have a long name :)", duration: "30 Minutes")
         MusicTimer_WidgetEntryView(entry: Entry(date: Date(), lastPlaylist: playlist))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }

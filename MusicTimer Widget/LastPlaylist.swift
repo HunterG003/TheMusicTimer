@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct LastPlaylist {
-    let image : Image
+//    let image : Image
     let name : String
     let duration : String
 }
