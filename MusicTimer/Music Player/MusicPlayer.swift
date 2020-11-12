@@ -14,7 +14,6 @@ class MusicPlayer {
     
     fileprivate let controller = SKCloudServiceController()
     fileprivate let systemMusicController = MPMusicPlayerController.systemMusicPlayer
-    fileprivate let appMusicController = MPMusicPlayerController.applicationMusicPlayer
     fileprivate let serviceController = SKCloudServiceController()
     fileprivate var userToken = ""
     fileprivate var userStorefront = ""
@@ -318,12 +317,12 @@ extension MusicPlayer {
                 self.isPlaying = true
             }
             completion(true)
-            let duration = timeToPlay / 60
-            let lastPlaylist = LastPlaylist(name: playlist.name, duration: "\(duration) Minutes")
-            if let groupUserDefaults = UserDefaults(suiteName: "group.huntergilliam.musictimer.contents") {
-                groupUserDefaults.set(lastPlaylist.name, forKey: "lastPlaylistName")
-                groupUserDefaults.set(lastPlaylist.duration, forKey: "lastPlaylistDuration")
-            }
+//            let duration = timeToPlay / 60
+//            let lastPlaylist = LastPlaylist(name: playlist.name, duration: "\(duration) Minutes")
+//            if let groupUserDefaults = UserDefaults(suiteName: "group.huntergilliam.musictimer.contents") {
+//                groupUserDefaults.set(lastPlaylist.name, forKey: "lastPlaylistName")
+//                groupUserDefaults.set(lastPlaylist.duration, forKey: "lastPlaylistDuration")
+//            }
         }
     }
 }

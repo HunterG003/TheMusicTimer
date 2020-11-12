@@ -19,7 +19,7 @@ class NewMainScreenConceptViewController: UIViewController, SKCloudServiceSetupV
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.image = UIImage(named: "artwork")
+        view.image = UIImage(named: "placeholderImage")
         return view
     }()
     
@@ -70,7 +70,7 @@ class NewMainScreenConceptViewController: UIViewController, SKCloudServiceSetupV
     }()
     
     private let miniPlayer : MiniNowPlayingView = {
-        let view = MiniNowPlayingView(image: UIImage(named: "artwork")!, label: "Circles - Post Malone")
+        let view = MiniNowPlayingView(image: UIImage(named: "placeholderImage")!, label: "Circles - Post Malone")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

@@ -15,7 +15,7 @@ class NowPlayingViewController: UIViewController {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
-        view.image = UIImage(named: "artwork")
+        view.image = UIImage(named: "placeholderImage")
         return view
     }()
     
