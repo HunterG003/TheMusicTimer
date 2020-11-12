@@ -11,14 +11,8 @@
 		5A3410AF2507EE180037AF68 /* MiniNowPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410AE2507EE180037AF68 /* MiniNowPlayingView.swift */; };
 		5A3410B3250A98D50037AF68 /* RoundedImageWithShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410B2250A98D50037AF68 /* RoundedImageWithShadow.swift */; };
 		5A3410B5250A9EFC0037AF68 /* UIImage Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410B4250A9EFC0037AF68 /* UIImage Extension.swift */; };
-		5A5B21802550C31E007CC218 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A5B21452550C258007CC218 /* WidgetKit.framework */; };
-		5A5B21812550C31E007CC218 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A5B21472550C259007CC218 /* SwiftUI.framework */; };
-		5A5B21842550C31E007CC218 /* MusicTimer_Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5B21832550C31E007CC218 /* MusicTimer_Widget.swift */; };
-		5A5B21862550C320007CC218 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A5B21852550C320007CC218 /* Assets.xcassets */; };
-		5A5B218A2550C320007CC218 /* MusicTimer WidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5A5B217F2550C31E007CC218 /* MusicTimer WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5A5B21A82550D9F7007CC218 /* ContentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5B21A72550D9F7007CC218 /* ContentRepository.swift */; };
 		5A5B21AD2550DB88007CC218 /* LastPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5B21AC2550DB88007CC218 /* LastPlaylist.swift */; };
-		5A5B21AE2550DB88007CC218 /* LastPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5B21AC2550DB88007CC218 /* LastPlaylist.swift */; };
 		5A6A817B251BD2A20075225C /* ButtonWithBlurredBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6A817A251BD2A20075225C /* ButtonWithBlurredBackground.swift */; };
 		5A7FA1142444FC1C00BE7DAA /* CommonMusicObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FA1132444FC1C00BE7DAA /* CommonMusicObjects.swift */; };
 		5A7FA1162444FF8200BE7DAA /* UserPlaylistDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FA1152444FF8200BE7DAA /* UserPlaylistDecoder.swift */; };
@@ -48,13 +42,6 @@
 			remoteGlobalIDString = 5A9E2C842434F39400C29103;
 			remoteInfo = MusicTimer;
 		};
-		5A5B21882550C320007CC218 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5A9E2C7D2434F39400C29103 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5A5B217E2550C31E007CC218;
-			remoteInfo = "MusicTimer WidgetExtension";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -64,7 +51,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				5A5B218A2550C320007CC218 /* MusicTimer WidgetExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,7 +66,6 @@
 		5A3410B4250A9EFC0037AF68 /* UIImage Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage Extension.swift"; sourceTree = "<group>"; };
 		5A5B21452550C258007CC218 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		5A5B21472550C259007CC218 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		5A5B217F2550C31E007CC218 /* MusicTimer WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MusicTimer WidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A5B21832550C31E007CC218 /* MusicTimer_Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTimer_Widget.swift; sourceTree = "<group>"; };
 		5A5B21852550C320007CC218 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A5B21872550C320007CC218 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -116,15 +101,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5A5B217C2550C31E007CC218 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5A5B21812550C31E007CC218 /* SwiftUI.framework in Frameworks */,
-				5A5B21802550C31E007CC218 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,7 +173,6 @@
 			children = (
 				5A9E2C852434F39400C29103 /* MusicTimer.app */,
 				5A2F748525312CE70086BFCF /* MusicTimerTests.xctest */,
-				5A5B217F2550C31E007CC218 /* MusicTimer WidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -290,23 +265,6 @@
 			productReference = 5A2F748525312CE70086BFCF /* MusicTimerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		5A5B217E2550C31E007CC218 /* MusicTimer WidgetExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5A5B218D2550C320007CC218 /* Build configuration list for PBXNativeTarget "MusicTimer WidgetExtension" */;
-			buildPhases = (
-				5A5B217B2550C31E007CC218 /* Sources */,
-				5A5B217C2550C31E007CC218 /* Frameworks */,
-				5A5B217D2550C31E007CC218 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "MusicTimer WidgetExtension";
-			productName = "MusicTimer WidgetExtension";
-			productReference = 5A5B217F2550C31E007CC218 /* MusicTimer WidgetExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		5A9E2C842434F39400C29103 /* MusicTimer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5A9E2C992434F39900C29103 /* Build configuration list for PBXNativeTarget "MusicTimer" */;
@@ -319,7 +277,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5A5B21892550C320007CC218 /* PBXTargetDependency */,
 			);
 			name = MusicTimer;
 			productName = MusicTimer;
@@ -339,9 +296,6 @@
 					5A2F748425312CE70086BFCF = {
 						CreatedOnToolsVersion = 12.0.1;
 						TestTargetID = 5A9E2C842434F39400C29103;
-					};
-					5A5B217E2550C31E007CC218 = {
-						CreatedOnToolsVersion = 12.1;
 					};
 					5A9E2C842434F39400C29103 = {
 						CreatedOnToolsVersion = 11.4;
@@ -363,7 +317,6 @@
 			targets = (
 				5A9E2C842434F39400C29103 /* MusicTimer */,
 				5A2F748425312CE70086BFCF /* MusicTimerTests */,
-				5A5B217E2550C31E007CC218 /* MusicTimer WidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -373,14 +326,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5A5B217D2550C31E007CC218 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5A5B21862550C320007CC218 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,15 +346,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A2F748825312CE70086BFCF /* MusicTimerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5A5B217B2550C31E007CC218 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5A5B21842550C31E007CC218 /* MusicTimer_Widget.swift in Sources */,
-				5A5B21AE2550DB88007CC218 /* LastPlaylist.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,11 +385,6 @@
 			isa = PBXTargetDependency;
 			target = 5A9E2C842434F39400C29103 /* MusicTimer */;
 			targetProxy = 5A2F748A25312CE70086BFCF /* PBXContainerItemProxy */;
-		};
-		5A5B21892550C320007CC218 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5A5B217E2550C31E007CC218 /* MusicTimer WidgetExtension */;
-			targetProxy = 5A5B21882550C320007CC218 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -506,54 +437,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MusicTimer.app/MusicTimer";
-			};
-			name = Release;
-		};
-		5A5B218B2550C320007CC218 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = "MusicTimer WidgetExtension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = E7Y454QTN5;
-				INFOPLIST_FILE = "MusicTimer Widget/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.huntergilliam.MusicTimer.MusicTimer-Widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		5A5B218C2550C320007CC218 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = "MusicTimer WidgetExtension.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = E7Y454QTN5;
-				INFOPLIST_FILE = "MusicTimer Widget/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.huntergilliam.MusicTimer.MusicTimer-Widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -725,15 +608,6 @@
 			buildConfigurations = (
 				5A2F748C25312CE70086BFCF /* Debug */,
 				5A2F748D25312CE70086BFCF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5A5B218D2550C320007CC218 /* Build configuration list for PBXNativeTarget "MusicTimer WidgetExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5A5B218B2550C320007CC218 /* Debug */,
-				5A5B218C2550C320007CC218 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

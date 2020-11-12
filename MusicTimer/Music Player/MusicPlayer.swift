@@ -289,7 +289,7 @@ extension MusicPlayer {
             }
         }
         
-//        NotificationCenter.default.post(name: NSNotification.Name.noSongsFound, object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name.noSongsFound, object: nil)
         return []
     }
 }
