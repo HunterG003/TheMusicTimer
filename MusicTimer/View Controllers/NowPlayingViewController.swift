@@ -223,21 +223,25 @@ class NowPlayingViewController: UIViewController {
         
         let songHeightMultiplier : CGFloat = 1/1.8
         
+        let spacingFromTop = view.bounds.height * (3/100)
+        let spacing = view.bounds.height * (1/100)
+        let widthSpacing = view.bounds.width * (9/100)
+        
         NSLayoutConstraint.activate([
             songImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            songImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
+            songImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: spacingFromTop),
             songImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: songHeightMultiplier),
             songImageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: songHeightMultiplier),
             
             songTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            songTitleLabel.topAnchor.constraint(equalTo: songImageView.bottomAnchor, constant: 10),
-            songTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-            songTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            songTitleLabel.topAnchor.constraint(equalTo: songImageView.bottomAnchor, constant: spacing),
+            songTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: widthSpacing),
+            songTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -widthSpacing),
             
             songArtistLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            songArtistLabel.topAnchor.constraint(equalTo: songTitleLabel.bottomAnchor, constant: 5),
-            songArtistLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-            songArtistLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            songArtistLabel.topAnchor.constraint(equalTo: songTitleLabel.bottomAnchor, constant: spacing),
+            songArtistLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: widthSpacing),
+            songArtistLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -widthSpacing),
         ])
     }
     
@@ -250,11 +254,14 @@ class NowPlayingViewController: UIViewController {
         let multiplier : CGFloat = 1/4
         let padding = view.bounds.width * (multiplier / 4)
         
+        let playButtonSpacing = view.bounds.height * (3/100)
+        let volumeSliderSpacing = view.bounds.height * (1/100)
+        
         NSLayoutConstraint.activate([
             playButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             playButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: multiplier),
             playButton.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: multiplier),
-            playButton.topAnchor.constraint(equalTo: songArtistLabel.bottomAnchor, constant: 25),
+            playButton.topAnchor.constraint(equalTo: songArtistLabel.bottomAnchor, constant: playButtonSpacing),
             
             backwardButton.trailingAnchor.constraint(equalTo: playButton.leadingAnchor, constant: -padding),
             backwardButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: multiplier),
@@ -266,7 +273,7 @@ class NowPlayingViewController: UIViewController {
             forwardButton.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: multiplier),
             forwardButton.centerYAnchor.constraint(equalTo: playButton.centerYAnchor),
             
-            volumeSlider.topAnchor.constraint(equalTo: playButton.bottomAnchor, constant: 10),
+            volumeSlider.topAnchor.constraint(equalTo: playButton.bottomAnchor, constant: volumeSliderSpacing),
             volumeSlider.leadingAnchor.constraint(equalTo: backwardButton.leadingAnchor),
             volumeSlider.trailingAnchor.constraint(equalTo: forwardButton.trailingAnchor),
             volumeSlider.heightAnchor.constraint(equalTo: songImageView.heightAnchor, multiplier: 1/5)
@@ -295,18 +302,21 @@ class NowPlayingViewController: UIViewController {
         view.addSubview(upNextView)
         view.addSubview(lastSongView)
         
+        let upNextSpacing = view.bounds.height * (1/100)
+        let lastSongSpacing = view.bounds.height * (3.5/100)
+        
         NSLayoutConstraint.activate([
             songsRemainingLabel.topAnchor.constraint(equalTo: volumeSlider.bottomAnchor),
             songsRemainingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             upNextView.leadingAnchor.constraint(equalTo: backwardButton.leadingAnchor),
             upNextView.trailingAnchor.constraint(equalTo: forwardButton.trailingAnchor),
-            upNextView.topAnchor.constraint(equalTo: songsRemainingLabel.bottomAnchor, constant: 10),
+            upNextView.topAnchor.constraint(equalTo: songsRemainingLabel.bottomAnchor, constant: upNextSpacing),
             upNextView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/15),
             
             lastSongView.leadingAnchor.constraint(equalTo: upNextView.leadingAnchor),
             lastSongView.trailingAnchor.constraint(equalTo: upNextView.trailingAnchor),
-            lastSongView.topAnchor.constraint(equalTo: upNextView.bottomAnchor, constant: 30),
+            lastSongView.topAnchor.constraint(equalTo: upNextView.bottomAnchor, constant: lastSongSpacing),
             lastSongView.heightAnchor.constraint(equalTo: upNextView.heightAnchor)
         ])
     }

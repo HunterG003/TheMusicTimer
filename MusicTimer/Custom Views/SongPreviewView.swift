@@ -68,8 +68,11 @@ class SongPreviewView: UIView {
             separator.heightAnchor.constraint(equalToConstant: 2),
             
             songInfoLabel.leadingAnchor.constraint(equalTo: headingLabel.leadingAnchor),
-            songInfoLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            songInfoLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+//            songInfoLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            songInfoLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            songInfoLabel.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 2)
         ])
+        
+        songInfoLabel.sizeToFit()
     }
 }

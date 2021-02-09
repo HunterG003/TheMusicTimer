@@ -190,6 +190,9 @@ class NewMainScreenConceptViewController: UIViewController, SKCloudServiceSetupV
         collectionView.dataSource = self
         collectionView.delegate = self
         
+        let spacingFromTop = view.bounds.height * (6/100)
+        let spacing = view.bounds.height * (2/100)
+        
         view.addSubview(collectionView)
         view.addSubview(playlistNameLabel)
         
@@ -197,9 +200,9 @@ class NewMainScreenConceptViewController: UIViewController, SKCloudServiceSetupV
             collectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/4),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: spacingFromTop),
             
-            playlistNameLabel.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 10),
+            playlistNameLabel.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: spacing),
             playlistNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             playlistNameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
@@ -214,10 +217,12 @@ class NewMainScreenConceptViewController: UIViewController, SKCloudServiceSetupV
     private func setupTimePicker() {
         view.addSubview(timePicker)
         
+        let spacing = view.bounds.height * (4/100)
+        
         NSLayoutConstraint.activate([
             timePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             timePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            timePicker.topAnchor.constraint(equalTo: playlistNameLabel.bottomAnchor, constant: 35),
+            timePicker.topAnchor.constraint(equalTo: playlistNameLabel.bottomAnchor, constant: spacing),
             timePicker.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/4.5)
         ])
     }
@@ -227,9 +232,11 @@ class NewMainScreenConceptViewController: UIViewController, SKCloudServiceSetupV
         
         let heightMultiplier : CGFloat = 1/5
         
+        let spacing = view.bounds.height * (3/100)
+        
         NSLayoutConstraint.activate([
             playButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            playButton.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: 50),
+            playButton.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: spacing),
             playButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/2),
             playButton.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: heightMultiplier)
         ])

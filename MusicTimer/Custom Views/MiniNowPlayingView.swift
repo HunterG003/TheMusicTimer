@@ -86,9 +86,9 @@ class MiniNowPlayingView: UIView {
         addSubview(playButton)
         addSubview(forwardButton)
         
-        let horizontalPadding : CGFloat = 20
-        let verticalPadding : CGFloat = 5
-        let itemSpacing : CGFloat = 10
+        let horizontalPadding : CGFloat = bounds.width * (5/100)
+        let verticalPadding : CGFloat = bounds.height * (5.5/100)
+        let itemSpacing : CGFloat = horizontalPadding / 2
         
         NSLayoutConstraint.activate([
             backgroundBlur.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -98,7 +98,7 @@ class MiniNowPlayingView: UIView {
             
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontalPadding),
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: verticalPadding),
-            imageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: verticalPadding),
+            imageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -verticalPadding),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
             
             label.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),

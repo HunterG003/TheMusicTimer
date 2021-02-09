@@ -140,9 +140,9 @@ extension MusicPlayer {
         components.host = "api.music.apple.com"
         components.path = path
         
-        components.queryItems = [
-            URLQueryItem(name: "limit", value: "1")
-        ]
+//        components.queryItems = [
+//            URLQueryItem(name: "limit", value: "1")
+//        ]
         
         let url = components.url!
         
@@ -155,6 +155,14 @@ extension MusicPlayer {
             
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as! Dictionary<String, Any>
+                
+                // Simple Check for errors
+                // TODO: Check for specific errors
+                if let _ = json["errors"] {
+                    self.tempCount -= 1
+                    return
+                }
+//                print(json)
                 let jsonData = json["data"] as! Array<Dictionary<String, Any>>
                 let attributes = jsonData[0]["attributes"] as! Dictionary<String, Any>
                 let artwork = attributes["artwork"] as! Dictionary<String, Any>
