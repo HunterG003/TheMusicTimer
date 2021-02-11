@@ -18,6 +18,7 @@ class MusicPlayer {
     fileprivate var userToken = ""
     fileprivate var userStorefront = ""
     fileprivate var hasSubsetBeenFound = false
+    fileprivate var isMoreSongs = true
     var userPlaylists = [Playlist]()
     var selectedPlaylist = 0
     var musicQueue = [Song]()
@@ -183,16 +184,59 @@ extension MusicPlayer {
     
     func getSongsFromPlaylist(from playlist: String, completion: @escaping ([Song]) -> Void) {
         var songs = [Song]()
-        
         let path = "/v1/me/library/playlists/\(playlist)/tracks"
         
-        self.fetchSongs(path: path) { (arr) in
-            songs.append(contentsOf: arr)
-            completion(songs)
+        getNumberOfSongsInPlaylist(playlist: playlist) { (num) in
+            let numberOfFetches = (num / 100) + 1
+            
+            for i in 0..<numberOfFetches {
+                self.fetchSongs(path: path, offset: i * 100) { (arr) in
+                    songs.append(contentsOf: arr)
+                    
+                    if songs.count == num {
+                        completion(songs)
+                        print("Number of total songs: \(songs.count)")
+                    }
+                }
+            }
         }
     }
     
-    private func fetchSongs(path: String, completion: @escaping ([Song]) -> Void) {
+    private func getNumberOfSongsInPlaylist(playlist: String, completion: @escaping (Int) -> Void) {
+        let path = "/v1/me/library/playlists/\(playlist)/tracks"
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.music.apple.com"
+        components.path = path
+        
+        components.queryItems = [
+            URLQueryItem(name: "limit", value: "1")
+        ]
+        
+        let url = components.url!
+        
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(devToken)", forHTTPHeaderField: "Authorization")
+        request.setValue(userToken, forHTTPHeaderField: "Music-User-Token")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else { return }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                let realData = json as! Dictionary<String, Any>
+                let meta = realData["meta"] as! Dictionary<String, Any>
+                print(meta["total"] ?? "")
+                let returnValue : Int = meta["total"] as! Int
+                completion(returnValue)
+            } catch {
+            
+            }
+        }.resume()
+    }
+    
+    private func fetchSongs(path: String, offset: Int, completion: @escaping ([Song]) -> Void) {
         var songs = [Song]()
         
         var components = URLComponents()
@@ -200,9 +244,9 @@ extension MusicPlayer {
         components.host = "api.music.apple.com"
         components.path = path
         
-//        components.queryItems = [
-//            URLQueryItem(name: "offset", value: offset)
-//        ]
+        components.queryItems = [
+            URLQueryItem(name: "offset", value: "\(offset)")
+        ]
         
         let url = components.url!
         

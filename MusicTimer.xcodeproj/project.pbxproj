@@ -11,8 +11,6 @@
 		5A3410AF2507EE180037AF68 /* MiniNowPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410AE2507EE180037AF68 /* MiniNowPlayingView.swift */; };
 		5A3410B3250A98D50037AF68 /* RoundedImageWithShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410B2250A98D50037AF68 /* RoundedImageWithShadow.swift */; };
 		5A3410B5250A9EFC0037AF68 /* UIImage Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3410B4250A9EFC0037AF68 /* UIImage Extension.swift */; };
-		5A5B21A82550D9F7007CC218 /* ContentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5B21A72550D9F7007CC218 /* ContentRepository.swift */; };
-		5A5B21AD2550DB88007CC218 /* LastPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5B21AC2550DB88007CC218 /* LastPlaylist.swift */; };
 		5A6A817B251BD2A20075225C /* ButtonWithBlurredBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6A817A251BD2A20075225C /* ButtonWithBlurredBackground.swift */; };
 		5A7FA1142444FC1C00BE7DAA /* CommonMusicObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FA1132444FC1C00BE7DAA /* CommonMusicObjects.swift */; };
 		5A7FA1162444FF8200BE7DAA /* UserPlaylistDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FA1152444FF8200BE7DAA /* UserPlaylistDecoder.swift */; };
@@ -66,13 +64,6 @@
 		5A3410B4250A9EFC0037AF68 /* UIImage Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage Extension.swift"; sourceTree = "<group>"; };
 		5A5B21452550C258007CC218 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		5A5B21472550C259007CC218 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		5A5B21832550C31E007CC218 /* MusicTimer_Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTimer_Widget.swift; sourceTree = "<group>"; };
-		5A5B21852550C320007CC218 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5A5B21872550C320007CC218 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5A5B219F2550D966007CC218 /* MusicTimer WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MusicTimer WidgetExtension.entitlements"; sourceTree = "<group>"; };
-		5A5B21A32550D99C007CC218 /* MusicTimer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusicTimer.entitlements; sourceTree = "<group>"; };
-		5A5B21A72550D9F7007CC218 /* ContentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentRepository.swift; sourceTree = "<group>"; };
-		5A5B21AC2550DB88007CC218 /* LastPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastPlaylist.swift; sourceTree = "<group>"; };
 		5A6A817A251BD2A20075225C /* ButtonWithBlurredBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithBlurredBackground.swift; sourceTree = "<group>"; };
 		5A7FA1132444FC1C00BE7DAA /* CommonMusicObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMusicObjects.swift; sourceTree = "<group>"; };
 		5A7FA1152444FF8200BE7DAA /* UserPlaylistDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPlaylistDecoder.swift; sourceTree = "<group>"; };
@@ -132,18 +123,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5A5B21822550C31E007CC218 /* MusicTimer Widget */ = {
-			isa = PBXGroup;
-			children = (
-				5A5B21832550C31E007CC218 /* MusicTimer_Widget.swift */,
-				5A5B21852550C320007CC218 /* Assets.xcassets */,
-				5A5B21872550C320007CC218 /* Info.plist */,
-				5A5B21A72550D9F7007CC218 /* ContentRepository.swift */,
-				5A5B21AC2550DB88007CC218 /* LastPlaylist.swift */,
-			);
-			path = "MusicTimer Widget";
-			sourceTree = "<group>";
-		};
 		5A7FA1122444FBF600BE7DAA /* Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,10 +138,8 @@
 		5A9E2C7C2434F39400C29103 = {
 			isa = PBXGroup;
 			children = (
-				5A5B219F2550D966007CC218 /* MusicTimer WidgetExtension.entitlements */,
 				5A9E2C872434F39400C29103 /* MusicTimer */,
 				5A2F748625312CE70086BFCF /* MusicTimerTests */,
-				5A5B21822550C31E007CC218 /* MusicTimer Widget */,
 				5A5B21442550C258007CC218 /* Frameworks */,
 				5A9E2C862434F39400C29103 /* Products */,
 			);
@@ -180,7 +157,6 @@
 		5A9E2C872434F39400C29103 /* MusicTimer */ = {
 			isa = PBXGroup;
 			children = (
-				5A5B21A32550D99C007CC218 /* MusicTimer.entitlements */,
 				5A9E2C882434F39400C29103 /* AppDelegate.swift */,
 				5A9E2C8A2434F39400C29103 /* SceneDelegate.swift */,
 				5A9E2C9E2435248900C29103 /* View Controllers */,
@@ -366,11 +342,9 @@
 				5A9E2C892434F39400C29103 /* AppDelegate.swift in Sources */,
 				5A7FA11C24450DDE00BE7DAA /* PlaylistTracksDecoder.swift in Sources */,
 				5AA556252518FCF700B76BF4 /* ActivityViewController.swift in Sources */,
-				5A5B21A82550D9F7007CC218 /* ContentRepository.swift in Sources */,
 				5A9E2C8B2434F39400C29103 /* SceneDelegate.swift in Sources */,
 				5A3410B3250A98D50037AF68 /* RoundedImageWithShadow.swift in Sources */,
 				5AB2AA09251A860F00E2A4AB /* NewPlaylistCell.swift in Sources */,
-				5A5B21AD2550DB88007CC218 /* LastPlaylist.swift in Sources */,
 				5AB2AA06251A84C000E2A4AB /* NewMainScreenConceptViewController.swift in Sources */,
 				5AC544032550A68A00404E1E /* NotificationNames.swift in Sources */,
 				5A6A817B251BD2A20075225C /* ButtonWithBlurredBackground.swift in Sources */,
