@@ -10,7 +10,7 @@ import MediaPlayer
 import StoreKit
 
 class MusicPlayer {
-    fileprivate let devToken = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlhEOFY3SExVR1EifQ.eyJpc3MiOiJFN1k0NTRRVE41IiwiaWF0IjoxNTk4Mjg2MjE1LCJleHAiOjE2MTM4NDE4MTV9.1-jRU6Zf2N5H-LlpAXxqjIdHOugU4zhMlR9HEfnVXKc73Z5KO1aKOxlMXasYROzQSmECu-1ygtZrSKJ5AMkbaA" // Need to move this to a web server
+    fileprivate let devToken = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlhEOFY3SExVR1EifQ.eyJpc3MiOiJFN1k0NTRRVE41IiwiaWF0IjoxNjE0NzQ0NTYxLCJleHAiOjE2MzAyOTI5NjF9.6Vll1fVDYISyT2qlyYhtrkvGjVfbgORqq2bnOhHMKSw9Ki9b8DyRq_Rdf3iiw3ZavCBCX118bt9jyVLbt2n8xA" // Regenerated 3/2/2021
     
     fileprivate let controller = SKCloudServiceController()
     fileprivate let systemMusicController = MPMusicPlayerController.systemMusicPlayer
