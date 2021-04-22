@@ -7,10 +7,10 @@
 //
 
 import UIKit
+import MediaPlayer
 
 class ViewController: UIViewController {
     
-    let COLORS = [UIColor.red, UIColor.blue, UIColor.green, UIColor.gray, UIColor.black, UIColor.white]
     let musicPlayer = MusicPlayer()
     
     // MARK: UI Variables
@@ -23,14 +23,36 @@ class ViewController: UIViewController {
         return button
     }()
     
+    private let getPlaylistsButton : UIButton = {
+        let button = UIButton()
+        button.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        button.setTitle("Get Playlists", for: .normal)
+        button.backgroundColor = .blue
+        button.addTarget(self, action: #selector(getPlaylistsPressed(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    private let getTracksButton : UIButton = {
+        let button = UIButton()
+        button.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        button.setTitle("Get Tracks", for: .normal)
+        button.backgroundColor = .blue
+        button.addTarget(self, action: #selector(getTracksPressed(_:)), for: .touchUpInside)
+        return button
+    }()
+    
     // MARK: VIEW DIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        view.backgroundColor = COLORS.randomElement()
+        view.backgroundColor = .black
         setupView()
-        musicPlayer.getUserToken()
-        musicPlayer.getStoreFront()
+        musicPlayer.getAuth()
+        NotificationCenter.default.addObserver(self, selector: #selector(printCurrentSong), name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
     }
     
     func setupView() {
@@ -46,12 +68,47 @@ class ViewController: UIViewController {
             playButton.widthAnchor.constraint(equalToConstant: 100),
             playButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+        view.addSubview(getPlaylistsButton)
+        getPlaylistsButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            getPlaylistsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            getPlaylistsButton.bottomAnchor.constraint(equalTo: playButton.topAnchor, constant: -20),
+            getPlaylistsButton.widthAnchor.constraint(equalToConstant: 100),
+            getPlaylistsButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        view.addSubview(getTracksButton)
+        getTracksButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            getTracksButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            getTracksButton.topAnchor.constraint(equalTo: playButton.bottomAnchor, constant: 20),
+            getTracksButton.widthAnchor.constraint(equalToConstant: 100),
+            getTracksButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
     @objc func playButtonPressed(_ button : UIButton) {
-        view.backgroundColor = COLORS.randomElement()
-        
-        musicPlayer.testAPIRequest()
+        musicPlayer.testPlay()
+    }
+    
+    @objc func getPlaylistsPressed(_ button : UIButton) {
+        musicPlayer.getUsersPlaylists { (playlists) in
+            for playlist in playlists {
+                print(playlist.id, playlist.name)
+            }
+        }
+    }
+    
+    @objc func getTracksPressed(_ button : UIButton) {
+        musicPlayer.getSongsFromPlaylist(from: "p.PkxV8JvhJZkPD5") { (songs) in
+            for song in songs {
+                print(song.name, song.artist)
+            }
+        }
+    }
+    
+    @objc func printCurrentSong() {
+        let song = MPMusicPlayerController.systemMusicPlayer.nowPlayingItem
+        print("Song ID:", song?.playbackStoreID ?? "Cant find song")
     }
 
 
