@@ -4,6 +4,6 @@ An application that allows you to select a playlist from your Apple Music librar
 This application has gone through a few iterations that changed mainly the UI/UX but also some of the functionality of it.
 
 # Screenshots
-![Main Menu Screen Image](/images/mainscreen.png)
-![Now Playing Screen Image](/images/nowplayingscreen.png)
-![Main Screen With A Mini Player](/images/mainscreenwithminiplayer.png)
+![Main Menu Screen Image](/images/mainscreen.png | width=100)
+![Now Playing Screen Image](/images/nowplayingscreen.png | width=100)
+![Main Screen With A Mini Player](/images/mainscreenwithminiplayer.png | width=100)
